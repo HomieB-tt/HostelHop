@@ -1,0 +1,90 @@
+name: hostelhop
+description: A hostel search and booking application.
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.10.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # ── Supabase ──────────────────────────────────────────────
+  supabase_flutter: ^2.5.0 # Supabase client + auth + storage
+
+  # ── State Management ──────────────────────────────────────
+  flutter_riverpod: ^3.2.1 # Riverpod state management
+  riverpod_annotation: ^4.0.2 # @riverpod code generation
+
+  # ── Local Cache ───────────────────────────────────────────
+  hive_flutter: ^1.1.0 # Hive + Flutter init helpers
+  hive: ^2.2.3 # Hive core (no code gen needed)
+
+  # ── Routing ───────────────────────────────────────────────
+  go_router: ^14.0.0 # Declarative routing
+
+  # ── UI & Theming ──────────────────────────────────────────
+  google_fonts: ^6.2.1 # Custom fonts
+  flutter_svg: ^2.0.10 # SVG image support
+  cached_network_image: ^3.3.1 # Image caching from network
+  shimmer: ^3.0.0 # Shimmer loading placeholders
+  smooth_page_indicator: ^1.1.0 # Onboarding page dots indicator
+  flutter_rating_bar: ^4.0.1 # Star rating widget
+  badges: ^3.1.2 # Notification badge on icons
+
+  # ── Image Handling ────────────────────────────────────────
+  image_picker: ^1.1.2 # Pick images from gallery/camera
+  image_cropper: ^11.0.0 # Crop images before uploading
+  flutter_image_compress: ^2.2.0 # Compress images before upload
+
+  # ── Date & Time ───────────────────────────────────────────
+  table_calendar: ^3.1.2 # Calendar for date range picking
+
+  # ── Booking & Payments ────────────────────────────────────
+  flutter_stripe: ^12.3.0 # Stripe payment integration
+
+  # ── Firebase & Notifications ──────────────────────────────
+  firebase_core: ^3.13.0 # Firebase core
+  firebase_messaging: ^15.2.5 # FCM push notifications
+  flutter_local_notifications: ^17.2.2 # Foreground notification display
+
+  # ── Utilities ─────────────────────────────────────────────
+  uuid: ^4.4.0 # Generate UUIDs
+  intl_phone_field: ^3.2.0 # Phone number input with country code
+  url_launcher: ^6.3.0 # Open URLs, emails, phone links
+  share_plus: ^10.1.4 # Share hostel listings (bumped for web ^1.0.0)
+  connectivity_plus: ^6.0.3 # Check network connectivity
+  flutter_dotenv: ^5.1.0 # Load .env variables
+  logger: ^2.4.0 # Structured logging for debugging
+  equatable: ^2.0.5 # Value equality for models
+  json_annotation: ^4.9.0 # @JsonSerializable annotation
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  # ── Code Generation ───────────────────────────────────────
+  build_runner: ^2.4.11 # Runs code generators
+  json_serializable: ^6.8.0 # Generates fromJson/toJson
+  riverpod_generator: ^4.0.3 # Generates Riverpod providers
+  riverpod_lint: ^3.1.3 # Riverpod lint rules
+
+  flutter_lints: ^4.0.0 # Recommended Flutter lints
+
+flutter:
+  uses-material-design: true
+
+  assets:
+  - assets/images/
+  - assets/icons/
+  - assets/animations/
+
+  fonts:
+  - family: CustomFont # Replace with your chosen Google Font
+    fonts:
+    - asset: assets/fonts/CustomFont-Regular.ttf
+    - asset: assets/fonts/CustomFont-Medium.ttf
+      weight: 500
+    - asset: assets/fonts/CustomFont-Bold.ttf
+      weight: 700

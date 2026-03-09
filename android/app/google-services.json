@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "636124913916",
+    "project_id": "hostelhop-1f47e",
+    "storage_bucket": "hostelhop-1f47e.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:636124913916:android:855c4dc3b26249fc747779",
+        "android_client_info": {
+          "package_name": "com.hostel.hop.hostelhop"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBeeJNlzgn1xhBL-vhoUW3gWJsrFDERX2s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
