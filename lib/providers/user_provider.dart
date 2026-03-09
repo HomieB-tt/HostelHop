@@ -37,8 +37,17 @@ class UserProfile extends _$UserProfile {
     if (current == null) return;
 
     final updates = <String, dynamic>{};
-    if (firstName != null) updates['first_name'] = firstName;
-    if (lastName != null) updates['last_name'] = lastName;
+
+    // Build full_name from parts, falling back to existing name segments
+    if (firstName != null || lastName != null) {
+      final parts = current.fullName.split(' ');
+      final existingFirst = parts.isNotEmpty ? parts.first : '';
+      final existingLast = parts.length > 1 ? parts.sublist(1).join(' ') : '';
+      final newFirst = firstName ?? existingFirst;
+      final newLast = lastName ?? existingLast;
+      updates['full_name'] = '$newFirst $newLast'.trim();
+    }
+
     if (phone != null) updates['phone'] = phone;
     if (updates.isEmpty) return;
 

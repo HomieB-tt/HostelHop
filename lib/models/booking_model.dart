@@ -13,6 +13,7 @@ class BookingModel {
     required this.checkInDate,
     required this.checkOutDate,
     required this.createdAt,
+    this.roomId,
     this.hostelImageUrl,
     this.paymentMethod,
     this.paymentPhone,
@@ -32,6 +33,7 @@ class BookingModel {
   final DateTime checkInDate;
   final DateTime checkOutDate;
   final DateTime createdAt;
+  final String? roomId;
   final String? hostelImageUrl;
   final String? paymentMethod;
   final String? paymentPhone;
@@ -85,6 +87,7 @@ class BookingModel {
       checkInDate: DateTime.parse(json['check_in_date'] as String),
       checkOutDate: DateTime.parse(json['check_out_date'] as String),
       createdAt: DateTime.parse(json['created_at'] as String),
+      roomId: json['room_id'] as String?,
       hostelImageUrl: json['hostel_image_url'] as String?,
       paymentMethod: json['payment_method'] as String?,
       paymentPhone: json['payment_phone'] as String?,
@@ -107,6 +110,7 @@ class BookingModel {
       'check_in_date': checkInDate.toIso8601String(),
       'check_out_date': checkOutDate.toIso8601String(),
       'created_at': createdAt.toIso8601String(),
+      if (roomId != null) 'room_id': roomId,
       if (hostelImageUrl != null) 'hostel_image_url': hostelImageUrl,
       if (paymentMethod != null) 'payment_method': paymentMethod,
       if (paymentPhone != null) 'payment_phone': paymentPhone,
@@ -120,6 +124,7 @@ class BookingModel {
     String? paymentMethod,
     String? paymentPhone,
     String? notes,
+    String? roomId,
     String? hostelImageUrl,
   }) {
     return BookingModel(
@@ -136,6 +141,7 @@ class BookingModel {
       checkInDate: checkInDate,
       checkOutDate: checkOutDate,
       createdAt: createdAt,
+      roomId: roomId ?? this.roomId,
       hostelImageUrl: hostelImageUrl ?? this.hostelImageUrl,
       paymentMethod: paymentMethod ?? this.paymentMethod,
       paymentPhone: paymentPhone ?? this.paymentPhone,

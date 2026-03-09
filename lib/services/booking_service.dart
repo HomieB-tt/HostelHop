@@ -55,10 +55,10 @@ class BookingService {
       'reference': reference,
       'status': BookingStatus.pending.value,
       'total_amount': totalAmount,
-      'commitment_fee': commitmentFee,
+      'commitment_fee_amount': commitmentFee,
       'commitment_fee_paid': 0,
-      'move_in_date': moveInDate.toIso8601String(),
-      'move_out_date': moveOutDate.toIso8601String(),
+      'check_in_date': moveInDate.toIso8601String(),
+      'check_out_date': moveOutDate.toIso8601String(),
     });
   }
 
@@ -137,6 +137,10 @@ class BookingService {
     final all = await _bookingRepo.fetchByUser(userId);
     return all.where((b) => b.status == BookingStatus.cancelled).toList();
   }
+
+  // ── Fetch single hostel (used by BookingNotifier) ─────────────────────────
+  Future<BooModel> fetchHostelDetails(String hostelId) =>
+      _hostelRepo.fetchById(hostelId);
 
   // ── Fetch single booking ───────────────────────────────────────────────────
   Future<BookingModel> fetchBookingById(String bookingId) =>

@@ -86,9 +86,9 @@ class AuthService {
     // Create profile row in public.profiles
     return _userRepo.create({
       'id': response.user!.id,
+      'full_name': '$firstName $lastName'.trim(),
       'phone': phone,
-      'first_name': firstName,
-      'last_name': lastName,
+      'email': response.user!.email ?? '',
       'role': UserRole.student.value,
     });
   }
