@@ -1,0 +1,66 @@
+workflows:
+  android-workflow:
+    name: Android Build
+    max_build_duration: 60
+    instance_type: mac_mini_m2
+    environment:
+      flutter: stable
+      java: 17
+      groups:
+      - keystore_credentials # Optional: Add your keystore credentials group
+      vars:
+        PACKAGE_NAME: "com.hostel.hop.hostelhop"
+    scripts:
+    - name: Set up local.properties
+      script: |
+        echo "flutter.sdk=$HOME/programs/flutter" > "$CM_BUILD_DIR/android/local.properties"
+    - name: Get Flutter packages
+      script: |
+        flutter pub get
+    - name: Build APK (debug)
+      script: |
+        flutter build apk --debug
+    - name: Build APK (release)
+      script: |
+        flutter build apk --release
+    artifacts:
+    - build/**/outputs/**/*.apk
+    - build/**/outputs/**/mapping.txt
+    - flutter_drive.log
+    publishing:
+      email:
+        recipients:
+        - waynelucian9@gmail.com # email
+        notify:
+          success: true
+          failure: true
+
+  ios-workflow:
+    name: iOS Build
+    max_build_duration: 60
+    instance_type: mac_mini_m2
+    environment:
+      flutter: stable
+      xcode: latest
+      cocoapods: default
+    scripts:
+    - name: Get Flutter packages
+      script: |
+        flutter pub get
+    - name: Install CocoaPods dependencies
+      script: |
+        cd ios && pod install
+    - name: Build iOS (debug)
+      script: |
+        flutter build ios --debug --no-codesign
+    artifacts:
+    - build/ios/ipa/*.ipa
+    - /tmp/xcodebuild_logs/*.log
+    - flutter_drive.log
+    publishing:
+      email:
+        recipients:
+        - waynelucian9@gmail.com # email
+        notify:
+          success: true
+          failure: true
