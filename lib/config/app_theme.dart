@@ -124,7 +124,7 @@ final lightTheme = ThemeData(
     contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
     hintStyle: GoogleFonts.sora(fontSize: 13, color: AppColors.textHintLight),
   ),
-  cardTheme: CardTheme(
+  cardTheme: CardThemeData(
     color: AppColors.surfaceLight,
     elevation: 0,
     shape: RoundedRectangleBorder(
@@ -227,7 +227,7 @@ final darkTheme = ThemeData(
       color: AppColors.textSecondaryDark,
     ),
   ),
-  cardTheme: CardTheme(
+  cardTheme: CardThemeData(
     color: AppColors.surfaceDark,
     elevation: 0,
     shape: RoundedRectangleBorder(

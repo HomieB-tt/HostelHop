@@ -2,8 +2,8 @@
 ///
 /// Usage (run / build):
 ///   flutter run \
-///     --dart-define=SUPABASE_URL=https://xxxx.supabase.co \
-///     --dart-define=SUPABASE_ANON_KEY=eyJhbGci...
+///     --dart-define=SUPABASE_URL=https://qfbyixktdrqolherauzw.supabase.co \
+///     --dart-define=SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFmYnlpeGt0ZHJxb2xoZXJhdXp3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIxMTE2OTgsImV4cCI6MjA4NzY4NzY5OH0.rVej979xFmSvY1UKfULZdZD_sDanHY_sU9Ty1H84gK0
 ///
 /// Usage (VS Code launch.json):
 ///   "toolArgs": [
