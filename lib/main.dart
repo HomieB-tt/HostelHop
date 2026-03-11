@@ -74,7 +74,3 @@ class HostelHopApp extends ConsumerWidget {
     );
   }
 }
-
-extension on AsyncValue<AppSettings> {
-  get valueOrNull => null;
-}
