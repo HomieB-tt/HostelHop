@@ -60,7 +60,7 @@ class HostelList extends _$HostelList {
 ///   final hostelAsync = ref.watch(hostelDetailProvider(hostelId));
 @riverpod
 Future<HostelModel> hostelDetail(HostelDetailRef ref, String hostelId) async {
-  final repo = const HostelRepository();
+  const repo = HostelRepository();
   return repo.fetchById(hostelId);
 }
 
