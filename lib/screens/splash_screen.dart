@@ -210,15 +210,15 @@ class _SunOrb extends StatelessWidget {
               height: 96,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: Colors.white.withOpacity(0.18),
+                color: Colors.white.withValues(alpha: 0.18),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.white.withOpacity(0.35),
+                    color: Colors.white.withValues(alpha: 0.35),
                     blurRadius: 32,
                     spreadRadius: 8,
                   ),
                   BoxShadow(
-                    color: AppColors.orangeBright.withOpacity(0.50),
+                    color: AppColors.orangeBright.withValues(alpha: 0.50),
                     blurRadius: 24,
                     spreadRadius: 4,
                   ),
@@ -246,7 +246,7 @@ class _HaloPainter extends CustomPainter {
     const gapFraction = 0.45; // fraction of arc that is gap
 
     final paint = Paint()
-      ..color = Colors.white.withOpacity(0.35)
+      ..color = Colors.white.withValues(alpha: 0.35)
       ..strokeWidth = 2.0
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.round;
@@ -353,7 +353,7 @@ class _DotLoader extends StatelessWidget {
                   height: 7,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: Colors.white.withOpacity(opacity),
+                    color: Colors.white.withValues(alpha: opacity),
                   ),
                 ),
               ),

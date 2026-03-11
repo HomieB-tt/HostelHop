@@ -11,23 +11,25 @@ abstract final class PriceFormatter {
   static String format(int amount) => 'UGX ${raw(amount)}';
 
   // ── Raw with commas: 1,250,000 ────────────────────────────────────────────
-  static String raw(int amount) => amount
-      .toString()
-      .replaceAllMapped(
-        RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-        (m) => '${m[1]},',
-      );
+  static String raw(int amount) => amount.toString().replaceAllMapped(
+    RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+    (m) => '${m[1]},',
+  );
 
   // ── Compact: UGX 1.25M / UGX 250K ────────────────────────────────────────
   static String compact(int amount) {
     if (amount >= 1_000_000) {
       final m = amount / 1_000_000;
-      final label = m == m.truncateToDouble() ? '${m.toInt()}M' : '${m.toStringAsFixed(1)}M';
+      final label = m == m.truncateToDouble()
+          ? '${m.toInt()}M'
+          : '${m.toStringAsFixed(1)}M';
       return 'UGX $label';
     }
     if (amount >= 1_000) {
       final k = amount / 1_000;
-      final label = k == k.truncateToDouble() ? '${k.toInt()}K' : '${k.toStringAsFixed(1)}K';
+      final label = k == k.truncateToDouble()
+          ? '${k.toInt()}K'
+          : '${k.toStringAsFixed(1)}K';
       return 'UGX $label';
     }
     return format(amount);

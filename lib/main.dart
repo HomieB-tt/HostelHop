@@ -6,6 +6,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 import 'config/app_theme.dart';
 import 'config/env.dart';
+import 'firebase_options.dart';
 import 'providers/settings_provider.dart';
 import 'services/notification_service.dart';
 import 'supabase/supabase_client.dart';
@@ -35,13 +36,13 @@ Future<void> main() async {
   await Hive.initFlutter();
 
   // ── 5. Firebase (required before NotificationService.init) ────────────────
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   // ── 6. Supabase ───────────────────────────────────────────────────────────
   await SupabaseClientManager.init();
 
   // ── 7. Push notifications ─────────────────────────────────────────────────
-  await NotificationService().init();
+  await NotificationService.instance.init();
 
   // ── 8. Run app ────────────────────────────────────────────────────────────
   runApp(const ProviderScope(child: HostelHopApp()));
@@ -72,4 +73,8 @@ class HostelHopApp extends ConsumerWidget {
       routerConfig: router,
     );
   }
+}
+
+extension on AsyncValue<AppSettings> {
+  get valueOrNull => null;
 }

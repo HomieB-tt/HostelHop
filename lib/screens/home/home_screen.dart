@@ -29,19 +29,19 @@ const List<_HeatLevel> _heatLevels = [
     label: 'Cool',
     emoji: '😌',
     color: Color(0xFF4CAF50),
-    tip: 'Weather for 2? Stay cool and book from home.',
+    tip: 'Enkoola nzungu! Stay cool and book from home.',
   ),
   _HeatLevel(
     label: 'Warm',
     emoji: '😅',
     color: Color(0xFFFFC107),
-    tip: 'Siwabi! Find a room, before the sun finds you.',
+    tip: 'Omupiira gw\'omwaka! Find a shaded room fast.',
   ),
   _HeatLevel(
     label: 'Hot',
     emoji: '🥵',
     color: Color(0xFFFF7043),
-    tip: 'Leero baba eh! It\'s too hot outside. Book your room from home.',
+    tip: 'Akasana kasiba! Book your room from home.',
   ),
   _HeatLevel(
     label: '🔥 Extreme',
@@ -158,7 +158,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                         delegate: SliverChildBuilderDelegate(
                           (_, i) => Padding(
                             padding: const EdgeInsets.only(bottom: 12),
-                            child: _HostelCard(hostel: hostels[i]),
+                            child: _StaggeredItem(
+                              index: i,
+                              child: _HostelCard(hostel: hostels[i]),
+                            ),
                           ),
                           childCount: hostels.length,
                         ),
@@ -371,10 +374,10 @@ class _AppBarActions extends StatelessWidget {
                 width: 32,
                 height: 32,
                 decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.25),
+                  color: Colors.white.withValues(alpha: 0.25),
                   shape: BoxShape.circle,
                   border: Border.all(
-                    color: Colors.white.withOpacity(0.60),
+                    color: Colors.white.withValues(alpha: 0.60),
                     width: 1.5,
                   ),
                 ),
@@ -410,9 +413,9 @@ class _SearchBar extends StatelessWidget {
       child: Container(
         height: 42,
         decoration: BoxDecoration(
-          color: Colors.white.withOpacity(0.18),
+          color: Colors.white.withValues(alpha: 0.18),
           borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: Colors.white.withOpacity(0.30)),
+          border: Border.all(color: Colors.white.withValues(alpha: 0.30)),
         ),
         child: Row(
           children: [
@@ -436,7 +439,7 @@ class _SearchBar extends StatelessWidget {
                 width: 32,
                 height: 32,
                 decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.20),
+                  color: Colors.white.withValues(alpha: 0.20),
                   borderRadius: BorderRadius.circular(7),
                 ),
                 child: const Icon(Icons.tune, color: Colors.white, size: 16),
@@ -536,7 +539,7 @@ class _SunMeterSurface extends StatelessWidget {
           boxShadow: t < 0.5
               ? [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.05 * (1 - t)),
+                    color: Colors.black.withValues(alpha: 0.05 * (1 - t)),
                     blurRadius: 8,
                     offset: const Offset(0, 2),
                   ),
@@ -792,7 +795,7 @@ class _HeatBar extends StatelessWidget {
                   border: Border.all(color: const Color(0xFFE53935), width: 2),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.15),
+                      color: Colors.black.withValues(alpha: 0.15),
                       blurRadius: 4,
                     ),
                   ],
@@ -822,7 +825,7 @@ class _HostelCard extends StatelessWidget {
           border: Border.all(color: const Color(0xFFE8EAED)),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.05),
+              color: Colors.black.withValues(alpha: 0.05),
               blurRadius: 8,
               offset: const Offset(0, 2),
             ),
@@ -1209,4 +1212,57 @@ class _NavItem {
   final IconData icon;
   final IconData activeIcon;
   final String label;
+}
+
+// ── Staggered entrance item ────────────────────────────────────────────────────
+/// Fades and slides up each list item with a staggered delay based on [index].
+/// Caps delay at item 6 so late items don't wait too long on long lists.
+class _StaggeredItem extends StatefulWidget {
+  const _StaggeredItem({required this.index, required this.child});
+  final int index;
+  final Widget child;
+
+  @override
+  State<_StaggeredItem> createState() => _StaggeredItemState();
+}
+
+class _StaggeredItemState extends State<_StaggeredItem>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _ctrl;
+  late final Animation<double> _opacity;
+  late final Animation<Offset> _slide;
+
+  @override
+  void initState() {
+    super.initState();
+    _ctrl = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 420),
+    );
+    _opacity = CurvedAnimation(parent: _ctrl, curve: Curves.easeOut);
+    _slide = Tween<Offset>(
+      begin: const Offset(0, 0.08),
+      end: Offset.zero,
+    ).animate(CurvedAnimation(parent: _ctrl, curve: Curves.easeOutCubic));
+
+    // Stagger: 60ms per item, capped at item 6
+    final delayMs = (widget.index.clamp(0, 6) * 60);
+    Future.delayed(Duration(milliseconds: delayMs), () {
+      if (mounted) _ctrl.forward();
+    });
+  }
+
+  @override
+  void dispose() {
+    _ctrl.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FadeTransition(
+      opacity: _opacity,
+      child: SlideTransition(position: _slide, child: widget.child),
+    );
+  }
 }

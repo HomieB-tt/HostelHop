@@ -39,7 +39,7 @@ final class UserProfileProvider
   UserProfile create() => UserProfile();
 }
 
-String _$userProfileHash() => r'4e457873bc6d130ba5aaff4ef819399265df1445';
+String _$userProfileHash() => r'a25dbda38b910925d7a32c3e579a8536bfae7da5';
 
 /// Watched by profile_screen, edit_profile_screen as:
 ///   final profileAsync = ref.watch(userProfileProvider);

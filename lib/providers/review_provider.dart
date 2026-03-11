@@ -3,6 +3,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../models/review_model.dart';
 import '../../repositories/review_repository.dart';
+import '../providers/hostel_provider.dart';
 
 part 'review_provider.g.dart';
 
@@ -44,6 +45,10 @@ class HostelReviews extends _$HostelReviews {
     // Refresh list after submit
     state = const AsyncLoading();
     state = await AsyncValue.guard(() => _repo.fetchByHostel(hostelId));
+
+    // Invalidate hostel detail — rating and reviewCount change after new review
+    ref.invalidate(hostelDetailProvider(hostelId));
+    ref.invalidate(hostelListProvider);
   }
 
   // ── Owner reply ────────────────────────────────────────────────────────────

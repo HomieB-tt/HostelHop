@@ -8,10 +8,7 @@ import '../../../models/booking_model.dart';
 ///
 ///   BookingStatusBadge(status: booking.status)
 class BookingStatusBadge extends StatelessWidget {
-  const BookingStatusBadge({
-    super.key,
-    required this.status,
-  });
+  const BookingStatusBadge({super.key, required this.status});
 
   final BookingStatus status;
 

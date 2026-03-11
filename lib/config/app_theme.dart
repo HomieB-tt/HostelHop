@@ -57,7 +57,7 @@ TextTheme _buildTextTheme(Color primary, Color secondary) {
 final lightTheme = ThemeData(
   useMaterial3: true,
   brightness: Brightness.light,
-  colorScheme: ColorScheme.light(
+  colorScheme: const ColorScheme.light(
     primary: AppColors.orangeBright,
     secondary: AppColors.blueLight,
     surface: AppColors.surfaceLight,
@@ -157,7 +157,7 @@ final lightTheme = ThemeData(
 final darkTheme = ThemeData(
   useMaterial3: true,
   brightness: Brightness.dark,
-  colorScheme: ColorScheme.dark(
+  colorScheme: const ColorScheme.dark(
     primary: AppColors.orangeBright,
     secondary: AppColors.blueDark,
     surface: AppColors.surfaceDark,
@@ -247,7 +247,7 @@ final darkTheme = ThemeData(
     contentTextStyle: GoogleFonts.sora(fontSize: 13, color: Colors.white),
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
   ),
-  bottomNavigationBarTheme: BottomNavigationBarThemeData(
+  bottomNavigationBarTheme: const BottomNavigationBarThemeData(
     backgroundColor: AppColors.surfaceDark,
     selectedItemColor: AppColors.orangeBright,
     unselectedItemColor: AppColors.textSecondaryDark,

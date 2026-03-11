@@ -201,21 +201,31 @@ class _HeroImageSection extends StatelessWidget {
       height: 220,
       child: Stack(
         children: [
-          // Image carousel
+          // Image carousel — first image is the Hero destination
           GestureDetector(
             onTap: onViewGallery,
             child: PageView.builder(
               controller: pageController,
               onPageChanged: onPageChanged,
               itemCount: images.isEmpty ? 1 : images.length,
-              itemBuilder: (_, i) => images.isEmpty
-                  ? _HeroPlaceholder()
-                  : Image.network(
-                      images[i],
-                      fit: BoxFit.cover,
-                      width: double.infinity,
-                      errorBuilder: (_, __, ___) => _HeroPlaceholder(),
-                    ),
+              itemBuilder: (_, i) {
+                final imageWidget = images.isEmpty
+                    ? _HeroPlaceholder()
+                    : Image.network(
+                        images[i],
+                        fit: BoxFit.cover,
+                        width: double.infinity,
+                        errorBuilder: (_, __, ___) => _HeroPlaceholder(),
+                      );
+                // Only the first image participates in the Hero transition
+                if (i == 0 && images.isNotEmpty) {
+                  return Hero(
+                    tag: 'hostel-image-${hostel.id}',
+                    child: imageWidget,
+                  );
+                }
+                return imageWidget;
+              },
             ),
           ),
 
@@ -230,7 +240,10 @@ class _HeroImageSection extends StatelessWidget {
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
-                  colors: [Colors.black.withOpacity(0.45), Colors.transparent],
+                  colors: [
+                    Colors.black.withValues(alpha: 0.45),
+                    Colors.transparent,
+                  ],
                 ),
               ),
             ),
@@ -261,7 +274,7 @@ class _HeroImageSection extends StatelessWidget {
                   borderRadius: BorderRadius.circular(50),
                   boxShadow: [
                     BoxShadow(
-                      color: const Color(0xFFE53935).withOpacity(0.40),
+                      color: const Color(0xFFE53935).withValues(alpha: 0.40),
                       blurRadius: 8,
                       offset: const Offset(0, 2),
                     ),
@@ -311,7 +324,7 @@ class _HeroImageSection extends StatelessWidget {
                     decoration: BoxDecoration(
                       color: isActive
                           ? Colors.white
-                          : Colors.white.withOpacity(0.50),
+                          : Colors.white.withValues(alpha: 0.50),
                       borderRadius: BorderRadius.circular(4),
                     ),
                   );
@@ -338,10 +351,13 @@ class _FloatingIconButton extends StatelessWidget {
         width: 34,
         height: 34,
         decoration: BoxDecoration(
-          color: Colors.white.withOpacity(0.92),
+          color: Colors.white.withValues(alpha: 0.92),
           shape: BoxShape.circle,
           boxShadow: [
-            BoxShadow(color: Colors.black.withOpacity(0.10), blurRadius: 6),
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.10),
+              blurRadius: 6,
+            ),
           ],
         ),
         child: Center(child: child),
@@ -780,7 +796,7 @@ class _LockRoomCTA extends StatelessWidget {
         color: Colors.white,
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.08),
+            color: Colors.black.withValues(alpha: 0.08),
             blurRadius: 16,
             offset: const Offset(0, -4),
           ),
@@ -796,7 +812,7 @@ class _LockRoomCTA extends StatelessWidget {
           borderRadius: BorderRadius.circular(50),
           boxShadow: [
             BoxShadow(
-              color: AppColors.orangeBright.withOpacity(0.40),
+              color: AppColors.orangeBright.withValues(alpha: 0.40),
               blurRadius: 20,
               offset: const Offset(0, 6),
             ),

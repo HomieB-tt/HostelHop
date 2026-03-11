@@ -40,14 +40,12 @@ abstract final class Validators {
     if (base != null) return base;
 
     final cleaned = value!.trim();
-    final prefix  = cleaned.substring(0, 3);
+    final prefix = cleaned.substring(0, 3);
 
-    if (provider == 'MTN' &&
-        !AppConstants.mtnPrefixes.contains(prefix)) {
+    if (provider == 'MTN' && !AppConstants.mtnPrefixes.contains(prefix)) {
       return 'Enter a valid MTN number (077x / 078x / 076x / 039x)';
     }
-    if (provider == 'Airtel' &&
-        !AppConstants.airtelPrefixes.contains(prefix)) {
+    if (provider == 'Airtel' && !AppConstants.airtelPrefixes.contains(prefix)) {
       return 'Enter a valid Airtel number (070x / 075x / 074x)';
     }
     return null;
@@ -58,8 +56,7 @@ abstract final class Validators {
     if (value == null || value.trim().isEmpty) {
       return 'Please enter your email address';
     }
-    if (!RegExp(r'^[\w.+-]+@[\w-]+\.[a-zA-Z]{2,}$')
-        .hasMatch(value.trim())) {
+    if (!RegExp(r'^[\w.+-]+@[\w-]+\.[a-zA-Z]{2,}$').hasMatch(value.trim())) {
       return 'Enter a valid email address';
     }
     return null;
@@ -87,11 +84,9 @@ abstract final class Validators {
   }
 
   // ── Name ───────────────────────────────────────────────────────────────────
-  static String? firstName(String? value) =>
-      _name(value, 'first name');
+  static String? firstName(String? value) => _name(value, 'first name');
 
-  static String? lastName(String? value) =>
-      _name(value, 'last name');
+  static String? lastName(String? value) => _name(value, 'last name');
 
   static String? _name(String? value, String label) {
     if (value == null || value.trim().isEmpty) {

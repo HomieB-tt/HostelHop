@@ -45,11 +45,7 @@ class BookingRepository {
 
   // ── Create booking ─────────────────────────────────────────────────────────
   Future<BookingModel> create(Map<String, dynamic> data) async {
-    final response = await supabase
-        .from(_table)
-        .insert(data)
-        .select()
-        .single();
+    final response = await supabase.from(_table).insert(data).select().single();
 
     return BookingModel.fromJson(response);
   }
@@ -107,8 +103,10 @@ class BookingRepository {
         .from(_table)
         .stream(primaryKey: ['id'])
         .eq('user_id', userId)
-        .map((rows) => rows
-            .map((e) => BookingModel.fromJson(e as Map<String, dynamic>))
-            .toList());
+        .map(
+          (rows) => rows
+              .map((e) => BookingModel.fromJson(e as Map<String, dynamic>))
+              .toList(),
+        );
   }
 }

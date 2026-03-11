@@ -1,70 +1,156 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+  "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  HostelHop — Info.plist
+  Location: ios/Runner/Info.plist
+
+  REQUIRED SETUP BEFORE BUILDING:
+    1. Run `flutterfire configure` — it auto-embeds GoogleService-Info.plist
+       into the Xcode project.
+    2. In Xcode → Runner → Signing & Capabilities:
+         • Add "Push Notifications" capability
+         • Add "Background Modes" → check "Remote notifications"
+    3. Replace com.hostelhop.app with your actual bundle ID if different.
+-->
 <plist version="1.0">
 <dict>
-	<key>CADisableMinimumFrameDurationOnPhone</key>
-	<true/>
-	<key>CFBundleDevelopmentRegion</key>
-	<string>$(DEVELOPMENT_LANGUAGE)</string>
-	<key>CFBundleDisplayName</key>
-	<string>Hostelhop</string>
-	<key>CFBundleExecutable</key>
-	<string>$(EXECUTABLE_NAME)</string>
-	<key>CFBundleIdentifier</key>
-	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
-	<key>CFBundleInfoDictionaryVersion</key>
-	<string>6.0</string>
-	<key>CFBundleName</key>
-	<string>hostelhop</string>
-	<key>CFBundlePackageType</key>
-	<string>APPL</string>
-	<key>CFBundleShortVersionString</key>
-	<string>$(FLUTTER_BUILD_NAME)</string>
-	<key>CFBundleSignature</key>
-	<string>????</string>
-	<key>CFBundleVersion</key>
-	<string>$(FLUTTER_BUILD_NUMBER)</string>
-	<key>LSRequiresIPhoneOS</key>
-	<true/>
-	<key>UIApplicationSceneManifest</key>
-	<dict>
-		<key>UIApplicationSupportsMultipleScenes</key>
-		<false/>
-		<key>UISceneConfigurations</key>
-		<dict>
-			<key>UIWindowSceneSessionRoleApplication</key>
-			<array>
-				<dict>
-					<key>UISceneClassName</key>
-					<string>UIWindowScene</string>
-					<key>UISceneConfigurationName</key>
-					<string>flutter</string>
-					<key>UISceneDelegateClassName</key>
-					<string>$(PRODUCT_MODULE_NAME).SceneDelegate</string>
-					<key>UISceneStoryboardFile</key>
-					<string>Main</string>
-				</dict>
-			</array>
-		</dict>
-	</dict>
-	<key>UIApplicationSupportsIndirectInputEvents</key>
-	<true/>
-	<key>UILaunchStoryboardName</key>
-	<string>LaunchScreen</string>
-	<key>UIMainStoryboardFile</key>
-	<string>Main</string>
-	<key>UISupportedInterfaceOrientations</key>
-	<array>
-		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
-	</array>
-	<key>UISupportedInterfaceOrientations~ipad</key>
-	<array>
-		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationPortraitUpsideDown</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
-	</array>
+
+    <!-- ── App display name ─────────────────────────────────────────────── -->
+    <key>CFBundleDisplayName</key>
+    <string>HostelHop</string>
+
+    <key>CFBundleName</key>
+    <string>hostelhop</string>
+
+    <!-- ── Bundle ID ────────────────────────────────────────────────────── -->
+    <key>CFBundleIdentifier</key>
+    <string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+
+    <!-- ── Version ──────────────────────────────────────────────────────── -->
+    <key>CFBundleShortVersionString</key>
+    <string>$(FLUTTER_BUILD_NAME)</string>
+
+    <key>CFBundleVersion</key>
+    <string>$(FLUTTER_BUILD_NUMBER)</string>
+
+    <key>CFBundlePackageType</key>
+    <string>APPL</string>
+
+    <key>CFBundleSignature</key>
+    <string>????</string>
+
+    <!-- ── Minimum iOS version (must match Podfile) ──────────────────────── -->
+    <key>MinimumOSVersion</key>
+    <string>14.0</string>
+
+    <!-- ── Orientation — portrait only ──────────────────────────────────── -->
+    <key>UISupportedInterfaceOrientations</key>
+    <array>
+        <string>UIInterfaceOrientationPortrait</string>
+    </array>
+
+    <key>UISupportedInterfaceOrientations~ipad</key>
+    <array>
+        <string>UIInterfaceOrientationPortrait</string>
+        <string>UIInterfaceOrientationPortraitUpsideDown</string>
+    </array>
+
+    <!-- ── Status bar ───────────────────────────────────────────────────── -->
+    <key>UIStatusBarStyle</key>
+    <string>UIStatusBarStyleLightContent</string>
+
+    <key>UIViewControllerBasedStatusBarAppearance</key>
+    <false/>
+
+    <!-- ── Permissions — user-facing strings ─────────────────────────────── -->
+
+    <!-- Camera (image_picker — hostel photos, avatar) -->
+    <key>NSCameraUsageDescription</key>
+    <string>HostelHop uses your camera to take photos for your profile and hostel listings.</string>
+
+    <!-- Photo library (image_picker — pick from gallery) -->
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>HostelHop needs access to your photo library to let you upload profile and hostel images.</string>
+
+    <!-- Photo library add (saving images — if needed) -->
+    <key>NSPhotoLibraryAddUsageDescription</key>
+    <string>HostelHop needs permission to save images to your photo library.</string>
+
+    <!-- Push notifications — handled via UNUserNotificationCenter;
+         no explicit plist key needed, but the capability must be added in Xcode. -->
+
+    <!-- ── URL schemes ──────────────────────────────────────────────────── -->
+    <!--
+      Registers the custom URL scheme for:
+        1. Deep links from notification taps:  hostelhop://booking/{bookingId}
+        2. Supabase Auth redirect (OAuth if added later)
+    -->
+    <key>CFBundleURLTypes</key>
+    <array>
+        <!-- HostelHop deep link scheme -->
+        <dict>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+            <key>CFBundleURLName</key>
+            <string>com.hostelhop.app.deeplink</string>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>hostelhop</string>
+            </array>
+        </dict>
+
+        <!-- Supabase Auth redirect scheme -->
+        <dict>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+            <key>CFBundleURLName</key>
+            <string>com.hostelhop.app.supabase</string>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>io.supabase.hostelhop</string>
+            </array>
+        </dict>
+    </array>
+
+    <!-- ── Universal Links (web deep links) ──────────────────────────────── -->
+    <!--
+      To support https://hostelhop.app/booking/{id} deep links on iOS,
+      also add an Associated Domains capability in Xcode:
+        applinks:hostelhop.app
+      And host an apple-app-site-association file at:
+        https://hostelhop.app/.well-known/apple-app-site-association
+    -->
+
+    <!-- ── Background modes ─────────────────────────────────────────────── -->
+    <!--
+      Remote notifications background mode allows FCM to deliver messages
+      when the app is in the background.
+      Must also be enabled in Xcode → Signing & Capabilities.
+    -->
+    <key>UIBackgroundModes</key>
+    <array>
+        <string>remote-notification</string>
+        <string>fetch</string>
+    </array>
+
+    <!-- ── Flutter / engine ─────────────────────────────────────────────── -->
+    <key>CADisableMinimumFrameDurationOnPhone</key>
+    <true/>
+
+    <key>UIApplicationSupportsIndirectInputEvents</key>
+    <true/>
+
+    <!-- ── iTunes transport security ────────────────────────────────────── -->
+    <!--
+      Supabase and Firebase both use HTTPS, so no exceptions are needed.
+      This block ensures the default secure behaviour is explicit.
+    -->
+    <key>NSAppTransportSecurity</key>
+    <dict>
+        <key>NSAllowsArbitraryLoads</key>
+        <false/>
+    </dict>
+
 </dict>
 </plist>

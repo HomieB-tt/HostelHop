@@ -83,7 +83,7 @@ class BookingService {
     // Record payment + confirm booking
     final confirmed = await _bookingRepo.recordCommitmentPayment(
       bookingId: bookingId,
-      amount: booking.commitmentFeeAmount,
+      amount: booking.commitmentFee,
       paymentMethod: paymentMethod,
       paymentPhone: paymentPhone,
     );
@@ -139,7 +139,7 @@ class BookingService {
   }
 
   // ── Fetch single hostel (used by BookingNotifier) ─────────────────────────
-  Future<BooModel> fetchHostelDetails(String hostelId) =>
+  Future<HostelModel> fetchHostelDetails(String hostelId) =>
       _hostelRepo.fetchById(hostelId);
 
   // ── Fetch single booking ───────────────────────────────────────────────────

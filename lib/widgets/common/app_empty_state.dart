@@ -39,36 +39,37 @@ class AppEmptyState extends StatelessWidget {
 
   // ── Preset factories ───────────────────────────────────────────────────────
   factory AppEmptyState.noHostels() => const AppEmptyState(
-        emoji: '🏚️',
-        title: 'No hostels found',
-        subtitle: 'Check back soon — new hostels are being added.',
-      );
+    emoji: '🏚️',
+    title: 'No hostels found',
+    subtitle: 'Check back soon — new hostels are being added.',
+  );
 
   factory AppEmptyState.noBookings() => const AppEmptyState(
-        emoji: '📋',
-        title: 'No bookings yet',
-        subtitle: 'Browse hostels to find your perfect room.',
-      );
+    emoji: '📋',
+    title: 'No bookings yet',
+    subtitle: 'Browse hostels to find your perfect room.',
+  );
 
   factory AppEmptyState.noPastBookings() => const AppEmptyState(
-        emoji: '🗂️',
-        title: 'No past bookings',
-        subtitle: 'Your completed stays will appear here.',
-      );
+    emoji: '🗂️',
+    title: 'No past bookings',
+    subtitle: 'Your completed stays will appear here.',
+  );
 
   factory AppEmptyState.noCancelledBookings() => const AppEmptyState(
-        emoji: '✅',
-        title: 'No cancellations',
-        subtitle: "You haven't cancelled any bookings.",
-      );
+    emoji: '✅',
+    title: 'No cancellations',
+    subtitle: "You haven't cancelled any bookings.",
+  );
 
   factory AppEmptyState.noReviews() => const AppEmptyState(
-        emoji: '💬',
-        title: 'No reviews yet',
-        subtitle: 'Be the first to share your experience.',
-      );
+    emoji: '💬',
+    title: 'No reviews yet',
+    subtitle: 'Be the first to share your experience.',
+  );
 
-  factory AppEmptyState.noResults() => const AppEmptyState(
+  factory AppEmptyState.noResults({Null Function()? onCta}) =>
+      const AppEmptyState(
         emoji: '🔍',
         title: 'No results found',
         subtitle: 'Try adjusting your search or filters.',

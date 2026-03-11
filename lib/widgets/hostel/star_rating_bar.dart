@@ -37,8 +37,8 @@ class StarRatingBar extends StatelessWidget {
             i < filled
                 ? Icons.star_rounded
                 : (i == filled && hasHalf)
-                    ? Icons.star_half_rounded
-                    : Icons.star_outline_rounded,
+                ? Icons.star_half_rounded
+                : Icons.star_outline_rounded,
             size: size,
             color: const Color(0xFFFFB300),
           ),

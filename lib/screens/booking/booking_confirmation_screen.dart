@@ -7,6 +7,7 @@ import '../../config/app_theme.dart';
 import '../../config/app_routes.dart';
 import '../../models/booking_model.dart';
 import '../../providers/booking_provider.dart';
+import '../../widgets/booking/booking_step_indicator.dart';
 
 class BookingConfirmationScreen extends ConsumerStatefulWidget {
   const BookingConfirmationScreen({super.key, required this.bookingId});
@@ -93,10 +94,17 @@ class _BookingConfirmationScreenState
           error: (e, _) => _ErrorBody(message: e.toString()),
           data: (booking) => SafeArea(
             child: SingleChildScrollView(
-              padding: const EdgeInsets.fromLTRB(20, 32, 20, 40),
+              padding: const EdgeInsets.fromLTRB(20, 16, 20, 40),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  // ── Step indicator ─────────────────────────────────
+                  const BookingStepIndicator(
+                    currentStep: BookingStep.confirmed,
+                  ),
+
+                  const SizedBox(height: 16),
+
                   // ── Animated checkmark ─────────────────────────────
                   _AnimatedCheckmark(
                     scaleAnimation: _checkScale,

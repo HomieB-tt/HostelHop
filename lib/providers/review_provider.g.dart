@@ -56,7 +56,7 @@ final class HostelReviewsProvider
   }
 }
 
-String _$hostelReviewsHash() => r'393a966af95b2001d6b85e461bbed70708f474b4';
+String _$hostelReviewsHash() => r'73ed8a42e5fbc5fb7bab45fc840a85bb6a52d6a0';
 
 /// Watched by hostel_reviews_screen as:
 ///   final reviewsAsync = ref.watch(hostelReviewsProvider(hostelId));

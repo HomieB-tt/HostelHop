@@ -3,9 +3,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../config/app_theme.dart';
-import '../../../config/app_routes.dart';
-import '../../../providers/auth_provider.dart';
+import '../../config/app_theme.dart';
+import '../../config/app_routes.dart';
+import '../../providers/auth_provider.dart';
 
 class OwnerLoginScreen extends ConsumerStatefulWidget {
   const OwnerLoginScreen({super.key});
@@ -50,12 +50,8 @@ class _OwnerLoginScreenState extends ConsumerState<OwnerLoginScreen> {
   void dispose() {
     _usernameController.dispose();
     _passwordController.dispose();
-    for (final c in _otpControllers) {
-      c.dispose();
-    }
-    for (final f in _otpFocusNodes) {
-      f.dispose();
-    }
+    for (final c in _otpControllers) c.dispose();
+    for (final f in _otpFocusNodes) f.dispose();
     _usernameFocus.dispose();
     _passwordFocus.dispose();
     super.dispose();
@@ -319,7 +315,7 @@ class _AdminInfoCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: const Color(0xFFE3F2FD),
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: AppColors.blueLight.withOpacity(0.30)),
+        border: Border.all(color: AppColors.blueLight.withValues(alpha: 0.30)),
       ),
       child: const Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -414,7 +410,7 @@ class _BlueTextField extends StatelessWidget {
         boxShadow: hasFocus
             ? [
                 BoxShadow(
-                  color: AppColors.blueLight.withOpacity(0.10),
+                  color: AppColors.blueLight.withValues(alpha: 0.10),
                   blurRadius: 8,
                   offset: const Offset(0, 2),
                 ),
@@ -492,7 +488,7 @@ class _BluePasswordField extends StatelessWidget {
         boxShadow: hasFocus
             ? [
                 BoxShadow(
-                  color: AppColors.blueLight.withOpacity(0.10),
+                  color: AppColors.blueLight.withValues(alpha: 0.10),
                   blurRadius: 8,
                   offset: const Offset(0, 2),
                 ),
@@ -601,7 +597,7 @@ class _OtpRow extends StatelessWidget {
               ),
               decoration: BoxDecoration(
                 color: isFilled
-                    ? AppColors.blueLight.withOpacity(0.06)
+                    ? AppColors.blueLight.withValues(alpha: 0.06)
                     : Colors.white,
                 borderRadius: BorderRadius.circular(10),
                 border: Border.all(
@@ -697,7 +693,7 @@ class _AccessButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(50),
         boxShadow: [
           BoxShadow(
-            color: AppColors.blueLight.withOpacity(0.35),
+            color: AppColors.blueLight.withValues(alpha: 0.35),
             blurRadius: 20,
             offset: const Offset(0, 6),
           ),

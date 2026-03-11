@@ -7,6 +7,8 @@ import '../../config/app_theme.dart';
 import '../../config/app_routes.dart';
 import '../../models/booking_model.dart';
 import '../../providers/booking_provider.dart';
+import '../../widgets/booking/booking_status_badge.dart';
+import '../../widgets/common/fade_up_widget.dart';
 
 // ── Tab definition ─────────────────────────────────────────────────────────────
 enum _BookingTab { active, past, cancelled }
@@ -72,18 +74,20 @@ class _MyBookingsScreenState extends ConsumerState<MyBookingsScreen> {
                   data: (bookings) {
                     final filtered = _filterBookings(bookings, _activeTab);
                     if (filtered.isEmpty) {
-                      return _EmptyState(tab: _activeTab);
+                      return FadeUpWidget(child: _EmptyState(tab: _activeTab));
                     }
-                    return ListView.separated(
-                      padding: const EdgeInsets.fromLTRB(16, 12, 16, 100),
-                      itemCount: filtered.length + 1, // +1 for support link
-                      separatorBuilder: (_, __) => const SizedBox(height: 12),
-                      itemBuilder: (_, i) {
-                        if (i == filtered.length) {
-                          return const _SupportLink();
-                        }
-                        return _BookingCard(booking: filtered[i]);
-                      },
+                    return FadeUpWidget(
+                      child: ListView.separated(
+                        padding: const EdgeInsets.fromLTRB(16, 12, 16, 100),
+                        itemCount: filtered.length + 1, // +1 for support link
+                        separatorBuilder: (_, __) => const SizedBox(height: 12),
+                        itemBuilder: (_, i) {
+                          if (i == filtered.length) {
+                            return const _SupportLink();
+                          }
+                          return _BookingCard(booking: filtered[i]);
+                        },
+                      ),
                     );
                   },
                 ),
@@ -228,7 +232,7 @@ class _BookingCard extends ConsumerWidget {
         border: Border.all(color: const Color(0xFFE8EAED)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.04),
+            color: Colors.black.withValues(alpha: 0.04),
             blurRadius: 8,
             offset: const Offset(0, 2),
           ),
@@ -304,83 +308,11 @@ class _CardHeader extends StatelessWidget {
           ),
 
           // Status badge
-          _StatusBadge(status: booking.status),
+          BookingStatusBadge(status: booking.status),
         ],
       ),
     );
   }
-}
-
-// ── Status badge ───────────────────────────────────────────────────────────────
-class _StatusBadge extends StatelessWidget {
-  const _StatusBadge({required this.status});
-  final BookingStatus status;
-
-  @override
-  Widget build(BuildContext context) {
-    final config = _badgeConfig(status);
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-      decoration: BoxDecoration(
-        color: config.bg,
-        borderRadius: BorderRadius.circular(50),
-        border: Border.all(color: config.border),
-      ),
-      child: Text(
-        config.label,
-        style: TextStyle(
-          fontFamily: 'Sora',
-          fontSize: 10,
-          fontWeight: FontWeight.w700,
-          color: config.text,
-        ),
-      ),
-    );
-  }
-
-  _BadgeConfig _badgeConfig(BookingStatus status) {
-    switch (status) {
-      case BookingStatus.confirmed:
-        return const _BadgeConfig(
-          label: '✅ CONFIRMED',
-          bg: Color(0xFFE8F5E9),
-          border: Color(0xFFA5D6A7),
-          text: Color(0xFF2E7D32),
-        );
-      case BookingStatus.pending:
-        return const _BadgeConfig(
-          label: '⏳ PENDING',
-          bg: Color(0xFFFFF8E1),
-          border: Color(0xFFFFE082),
-          text: Color(0xFF795548),
-        );
-      case BookingStatus.completed:
-        return _BadgeConfig(
-          label: '🏁 COMPLETED',
-          bg: Colors.grey.shade100,
-          border: Colors.grey.shade300,
-          text: Colors.grey.shade600,
-        );
-      case BookingStatus.cancelled:
-        return const _BadgeConfig(
-          label: '❌ CANCELLED',
-          bg: Color(0xFFFFEBEE),
-          border: Color(0xFFEF9A9A),
-          text: Color(0xFFB71C1C),
-        );
-    }
-  }
-}
-
-class _BadgeConfig {
-  const _BadgeConfig({
-    required this.label,
-    required this.bg,
-    required this.border,
-    required this.text,
-  });
-  final String label;
-  final Color bg, border, text;
 }
 
 // ── Card summary row — thumbnail + hostel info ─────────────────────────────────

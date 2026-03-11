@@ -62,7 +62,9 @@ class DateRangePicker extends StatelessWidget {
     final lastDate = maxDate ?? DateTime(DateTime.now().year + 2);
     final initial = isCheckIn
         ? (checkIn ?? DateTime.now())
-        : (checkOut ?? (checkIn?.add(const Duration(days: AppConstants.semesterDays)) ?? DateTime.now()));
+        : (checkOut ??
+              (checkIn?.add(const Duration(days: AppConstants.semesterDays)) ??
+                  DateTime.now()));
 
     final picked = await showDatePicker(
       context: context,
@@ -101,7 +103,8 @@ class DateRangePicker extends StatelessWidget {
         // ── Preset buttons ───────────────────────────────────────────────────
         Row(
           children: _presets.map((p) {
-            final isActive = checkIn != null &&
+            final isActive =
+                checkIn != null &&
                 checkOut != null &&
                 _isSameDay(checkIn!, p.checkIn) &&
                 _isSameDay(checkOut!, p.checkOut);
@@ -111,9 +114,7 @@ class DateRangePicker extends StatelessWidget {
                 onTap: () => onChanged(p.checkIn, p.checkOut),
                 child: AnimatedContainer(
                   duration: const Duration(milliseconds: 180),
-                  margin: EdgeInsets.only(
-                    right: p == _presets.last ? 0 : 8,
-                  ),
+                  margin: EdgeInsets.only(right: p == _presets.last ? 0 : 8),
                   padding: const EdgeInsets.symmetric(vertical: 10),
                   decoration: BoxDecoration(
                     color: isActive
@@ -253,9 +254,7 @@ class _DateTile extends StatelessWidget {
             Icon(
               icon,
               size: 16,
-              color: hasDate
-                  ? AppColors.orangeBright
-                  : AppColors.textHintLight,
+              color: hasDate ? AppColors.orangeBright : AppColors.textHintLight,
             ),
             const SizedBox(width: 8),
             Expanded(
@@ -272,9 +271,7 @@ class _DateTile extends StatelessWidget {
                   ),
                   const SizedBox(height: 2),
                   Text(
-                    hasDate
-                        ? DateHelpers.formatShort(date!)
-                        : 'Select date',
+                    hasDate ? DateHelpers.formatShort(date!) : 'Select date',
                     style: TextStyle(
                       fontFamily: 'Sora',
                       fontSize: 12,

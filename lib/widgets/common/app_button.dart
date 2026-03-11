@@ -81,15 +81,15 @@ class AppButton extends StatelessWidget {
             ),
           )
         : icon != null
-            ? Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(icon, size: 18, color: fg),
-                  const SizedBox(width: 8),
-                  Text(label, style: _labelStyle(fg)),
-                ],
-              )
-            : Text(label, style: _labelStyle(fg));
+        ? Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(icon, size: 18, color: fg),
+              const SizedBox(width: 8),
+              Text(label, style: _labelStyle(fg)),
+            ],
+          )
+        : Text(label, style: _labelStyle(fg));
 
     final button = SizedBox(
       height: height,
@@ -113,11 +113,11 @@ class AppButton extends StatelessWidget {
   }
 
   TextStyle _labelStyle(Color color) => TextStyle(
-        fontFamily: 'Sora',
-        fontSize: 15,
-        fontWeight: FontWeight.w700,
-        color: color,
-      );
+    fontFamily: 'Sora',
+    fontSize: 15,
+    fontWeight: FontWeight.w700,
+    color: color,
+  );
 }
 
 // ── Outlined variant ───────────────────────────────────────────────────────────
@@ -146,15 +146,15 @@ class _OutlinedButton extends AppButton {
             ),
           )
         : icon != null
-            ? Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(icon, size: 18, color: fg),
-                  const SizedBox(width: 8),
-                  Text(label, style: _outlinedLabelStyle),
-                ],
-              )
-            : Text(label, style: _outlinedLabelStyle);
+        ? Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(icon, size: 18, color: fg),
+              const SizedBox(width: 8),
+              Text(label, style: _outlinedLabelStyle),
+            ],
+          )
+        : Text(label, style: _outlinedLabelStyle);
 
     return SizedBox(
       height: height,

@@ -19,7 +19,6 @@ dependencies:
 
   # ── Local Cache ───────────────────────────────────────────
   hive_flutter: ^1.1.0 # Hive + Flutter init helpers
-  hive: ^2.2.3 # Hive core (no code gen needed)
 
   # ── Routing ───────────────────────────────────────────────
   go_router: ^14.0.0 # Declarative routing
@@ -33,10 +32,11 @@ dependencies:
   flutter_rating_bar: ^4.0.1 # Star rating widget
   badges: ^3.1.2 # Notification badge on icons
 
-  # ── Image Handling ────────────────────────────────────────
+  # ── Image Handling and Icons ────────────────────────────────────────
   image_picker: ^1.1.2 # Pick images from gallery/camera
   image_cropper: ^11.0.0 # Crop images before uploading
   flutter_image_compress: ^2.2.0 # Compress images before upload
+  flutter_launcher_icons: ^0.14.4
 
   # ── Date & Time ───────────────────────────────────────────
   table_calendar: ^3.1.2 # Calendar for date range picking

@@ -48,11 +48,7 @@ class RoomRepository {
 
   // ── Create room ────────────────────────────────────────────────────────────
   Future<RoomModel> create(Map<String, dynamic> data) async {
-    final response = await supabase
-        .from(_table)
-        .insert(data)
-        .select()
-        .single();
+    final response = await supabase.from(_table).insert(data).select().single();
 
     return RoomModel.fromJson(response);
   }
@@ -71,10 +67,7 @@ class RoomRepository {
 
   // ── Decrement available slots (called after booking) ──────────────────────
   Future<void> decrementAvailableSlots(String roomId) async {
-    await supabase.rpc(
-      'decrement_room_slots',
-      params: {'room_id': roomId},
-    );
+    await supabase.rpc('decrement_room_slots', params: {'room_id': roomId});
   }
 
   // ── Delete room ────────────────────────────────────────────────────────────
@@ -88,8 +81,10 @@ class RoomRepository {
         .from(_table)
         .stream(primaryKey: ['id'])
         .eq('hostel_id', hostelId)
-        .map((rows) => rows
-            .map((e) => RoomModel.fromJson(e as Map<String, dynamic>))
-            .toList());
+        .map(
+          (rows) => rows
+              .map((e) => RoomModel.fromJson(e as Map<String, dynamic>))
+              .toList(),
+        );
   }
 }

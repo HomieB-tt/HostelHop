@@ -6,7 +6,7 @@ abstract final class SupabaseBuckets {
   SupabaseBuckets._();
 
   // ── Bucket names ───────────────────────────────────────────────────────────
-  static const hostels = 'hostel-images';
+  static const hostels = 'hostel_images';
   static const avatars = 'avatars';
   static const documents = 'documents';
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../config/app_theme.dart';
-import '../common/app_network_image.dart';
+import '../../widgets/common/app_network_image.dart';
 
 /// Swipeable full-width image carousel for the hostel detail screen.
 ///
@@ -75,7 +75,7 @@ class _HostelImageCarouselState extends State<HostelImageCarousel> {
                     end: Alignment.bottomCenter,
                     colors: [
                       Colors.transparent,
-                      Colors.black.withOpacity(0.45),
+                      Colors.black.withValues(alpha: 0.45),
                     ],
                   ),
                 ),
@@ -100,7 +100,7 @@ class _HostelImageCarouselState extends State<HostelImageCarousel> {
                       decoration: BoxDecoration(
                         color: _current == i
                             ? Colors.white
-                            : Colors.white.withOpacity(0.5),
+                            : Colors.white.withValues(alpha: 0.5),
                         borderRadius: BorderRadius.circular(3),
                       ),
                     ),
@@ -119,7 +119,7 @@ class _HostelImageCarouselState extends State<HostelImageCarousel> {
                     vertical: 5,
                   ),
                   decoration: BoxDecoration(
-                    color: Colors.black.withOpacity(0.45),
+                    color: Colors.black.withValues(alpha: 0.45),
                     borderRadius: BorderRadius.circular(50),
                   ),
                   child: Text(
@@ -145,7 +145,7 @@ class _HostelImageCarouselState extends State<HostelImageCarousel> {
                     vertical: 5,
                   ),
                   decoration: BoxDecoration(
-                    color: Colors.black.withOpacity(0.45),
+                    color: Colors.black.withValues(alpha: 0.45),
                     borderRadius: BorderRadius.circular(50),
                   ),
                   child: const Row(

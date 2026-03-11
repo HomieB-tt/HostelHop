@@ -8,6 +8,9 @@ import '../../config/app_routes.dart';
 import '../../models/hostel_model.dart';
 import '../../providers/hostel_provider.dart';
 import '../../providers/booking_provider.dart';
+import '../../widgets/booking/booking_summary_card.dart';
+import '../../widgets/booking/booking_step_indicator.dart';
+import '../../widgets/booking/date_range_picker.dart';
 
 class BookingScreen extends ConsumerStatefulWidget {
   const BookingScreen({super.key, required this.hostelId});
@@ -20,13 +23,42 @@ class BookingScreen extends ConsumerStatefulWidget {
 class _BookingScreenState extends ConsumerState<BookingScreen> {
   bool _isLoading = false;
 
+  // Date state — driven by DateRangePicker
+  DateTime? _checkIn;
+  DateTime? _checkOut;
+
+  @override
+  void initState() {
+    super.initState();
+    // Default to semester 1 dates
+    _checkIn = DateTime(DateTime.now().year, 2, 1);
+    _checkOut = DateTime(DateTime.now().year, 7, 31);
+  }
+
   Future<void> _onLockRoom(HostelModel hostel) async {
+    if (_checkIn == null || _checkOut == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Please select check-in and check-out dates.'),
+          backgroundColor: AppColors.error,
+        ),
+      );
+      return;
+    }
     setState(() => _isLoading = true);
     try {
-      // Create a pending booking — navigates to payment on success
       final bookingId = await ref
           .read(bookingProvider.notifier)
-          .createBooking(hostelId: hostel.id);
+          .createBooking(
+            hostelId: hostel.id,
+            hostelName: hostel.name,
+            roomId: '',
+            roomType: hostel.primaryRoomType,
+            totalAmount: hostel.pricePerSemester,
+            commitmentFee: hostel.commitmentFee,
+            moveInDate: _checkIn!,
+            moveOutDate: _checkOut!,
+          );
       if (mounted) context.push(AppRoutes.payment(bookingId));
     } catch (e) {
       if (mounted) {
@@ -71,6 +103,9 @@ class _BookingScreenState extends ConsumerState<BookingScreen> {
                 // ── Top bar ──────────────────────────────────────────
                 _TopBar(onBack: () => context.pop(), hostel: hostel),
 
+                // ── Step indicator ───────────────────────────────────
+                const BookingStepIndicator(currentStep: BookingStep.details),
+
                 // ── Scrollable content ───────────────────────────────
                 Expanded(
                   child: SingleChildScrollView(
@@ -81,15 +116,49 @@ class _BookingScreenState extends ConsumerState<BookingScreen> {
                         // Hostel summary card
                         _HostelSummaryCard(hostel: hostel),
 
+                        const SizedBox(height: 16),
+
+                        // Date range picker
+                        const Text(
+                          'Select Dates',
+                          style: TextStyle(
+                            fontFamily: 'Sora',
+                            fontSize: 14,
+                            fontWeight: FontWeight.w700,
+                            color: AppColors.textPrimaryLight,
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        DateRangePicker(
+                          checkIn: _checkIn,
+                          checkOut: _checkOut,
+                          onChanged: (checkIn, checkOut) {
+                            setState(() {
+                              _checkIn = checkIn;
+                              _checkOut = checkOut;
+                            });
+                          },
+                        ),
+
+                        const SizedBox(height: 16),
+
+                        // Booking summary card
+                        BookingSummaryCard(
+                          hostelName: hostel.name,
+                          roomType: hostel.primaryRoomType,
+                          checkIn:
+                              _checkIn ?? DateTime(DateTime.now().year, 2, 1),
+                          checkOut:
+                              _checkOut ?? DateTime(DateTime.now().year, 7, 31),
+                          totalAmount: hostel.pricePerSemester,
+                          commitmentFee: hostel.commitmentFee,
+                          location: hostel.location,
+                        ),
+
                         const SizedBox(height: 12),
 
                         // Dark commitment fee card
                         _CommitmentFeeCard(hostel: hostel),
-
-                        const SizedBox(height: 12),
-
-                        // Price breakdown table
-                        _PriceBreakdownTable(hostel: hostel),
 
                         const SizedBox(height: 12),
 
@@ -244,7 +313,7 @@ class _HostelSummaryCard extends StatelessWidget {
                 const SizedBox(height: 5),
                 Text(
                   '📅 ${hostel.semesterLabel}',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: 'Sora',
                     fontSize: 11,
                     fontWeight: FontWeight.w600,
@@ -456,7 +525,7 @@ class _PriceBreakdownTable extends StatelessWidget {
           _BreakdownRow(
             label: 'Commitment Fee (Now)',
             value: 'UGX ${_formatPrice(hostel.commitmentFee)}',
-            valueStyle: const TextStyle(
+            valueStyle: TextStyle(
               fontFamily: 'Sora',
               fontSize: 11,
               fontWeight: FontWeight.w600,
@@ -553,11 +622,11 @@ class _GuaranteeBanner extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: AppColors.orangeBright.withOpacity(0.30)),
       ),
-      child: const Row(
+      child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('🛡️', style: TextStyle(fontSize: 18)),
-          SizedBox(width: 8),
+          const Text('🛡️', style: TextStyle(fontSize: 18)),
+          const SizedBox(width: 8),
           Expanded(
             child: Text(
               'Protected by Campus Life Guarantee. If the hostel '
@@ -592,7 +661,7 @@ class _LockRoomButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return DecoratedBox(
       decoration: BoxDecoration(
-        gradient: const LinearGradient(
+        gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [AppColors.blueLight, AppColors.blueDark],
@@ -683,7 +752,7 @@ class _ErrorBody extends StatelessWidget {
               onPressed: () => context.pop(),
               style: OutlinedButton.styleFrom(
                 foregroundColor: AppColors.blueLight,
-                side: const BorderSide(color: AppColors.blueLight),
+                side: BorderSide(color: AppColors.blueLight),
                 shape: const StadiumBorder(),
                 padding: const EdgeInsets.symmetric(
                   horizontal: 32,

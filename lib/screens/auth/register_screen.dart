@@ -314,7 +314,7 @@ class _OrangeHeader extends StatelessWidget {
                   shape: BoxShape.circle,
                   gradient: RadialGradient(
                     colors: [
-                      Colors.white.withOpacity(0.12),
+                      Colors.white.withValues(alpha: 0.12),
                       Colors.transparent,
                     ],
                   ),
@@ -373,10 +373,10 @@ class _HeaderContent extends StatelessWidget {
                       height: 62,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        color: Colors.white.withOpacity(0.18),
+                        color: Colors.white.withValues(alpha: 0.18),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.white.withOpacity(0.30),
+                            color: Colors.white.withValues(alpha: 0.30),
                             blurRadius: 20,
                             spreadRadius: 4,
                           ),
@@ -444,7 +444,7 @@ class _MiniHaloPainter extends CustomPainter {
     const gapFraction = 0.45;
 
     final paint = Paint()
-      ..color = Colors.white.withOpacity(0.35)
+      ..color = Colors.white.withValues(alpha: 0.35)
       ..strokeWidth = 1.5
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.round;
@@ -550,9 +550,8 @@ class _RegisterForm extends StatelessWidget {
               keyboardType: TextInputType.name,
               textCapitalization: TextCapitalization.words,
               validator: (v) {
-                if (v == null || v.trim().isEmpty) {
+                if (v == null || v.trim().isEmpty)
                   return 'Full name is required';
-                }
                 if (v.trim().split(' ').length < 2) {
                   return 'Please enter first and last name';
                 }
@@ -620,12 +619,10 @@ class _RegisterForm extends StatelessWidget {
               isConfirm: true,
               passwordController: passwordController,
               validator: (v) {
-                if (v == null || v.isEmpty) {
+                if (v == null || v.isEmpty)
                   return 'Please confirm your password';
-                }
-                if (v != passwordController.text) {
+                if (v != passwordController.text)
                   return 'Passwords do not match';
-                }
                 return null;
               },
             ),
@@ -742,7 +739,7 @@ class _OrangeTextField extends StatelessWidget {
         boxShadow: hasFocus
             ? [
                 BoxShadow(
-                  color: AppColors.orangeBright.withOpacity(0.12),
+                  color: AppColors.orangeBright.withValues(alpha: 0.12),
                   blurRadius: 8,
                   offset: const Offset(0, 2),
                 ),
@@ -816,7 +813,7 @@ class _PhoneField extends StatelessWidget {
         boxShadow: hasFocus
             ? [
                 BoxShadow(
-                  color: AppColors.orangeBright.withOpacity(0.12),
+                  color: AppColors.orangeBright.withValues(alpha: 0.12),
                   blurRadius: 8,
                   offset: const Offset(0, 2),
                 ),
@@ -924,7 +921,7 @@ class _PasswordField extends StatelessWidget {
         boxShadow: hasFocus
             ? [
                 BoxShadow(
-                  color: AppColors.orangeBright.withOpacity(0.12),
+                  color: AppColors.orangeBright.withValues(alpha: 0.12),
                   blurRadius: 8,
                   offset: const Offset(0, 2),
                 ),
@@ -1128,7 +1125,7 @@ class _CreateAccountButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(50),
         boxShadow: [
           BoxShadow(
-            color: AppColors.orangeBright.withOpacity(0.40),
+            color: AppColors.orangeBright.withValues(alpha: 0.40),
             blurRadius: 20,
             offset: const Offset(0, 6),
           ),

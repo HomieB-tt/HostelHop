@@ -66,7 +66,7 @@ class BookingSummaryCard extends StatelessWidget {
         border: Border.all(color: AppColors.borderLight),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.04),
+            color: Colors.black.withValues(alpha: 0.04),
             blurRadius: 8,
             offset: const Offset(0, 2),
           ),
@@ -87,7 +87,7 @@ class BookingSummaryCard extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
-                    color: AppColors.orangeBright.withOpacity(0.1),
+                    color: AppColors.orangeBright.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: const Icon(
@@ -260,7 +260,8 @@ class _Row extends StatelessWidget {
           child: Text(
             value,
             textAlign: TextAlign.end,
-            style: valueStyle ??
+            style:
+                valueStyle ??
                 const TextStyle(
                   fontFamily: 'Sora',
                   fontSize: 12,

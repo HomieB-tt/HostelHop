@@ -10,8 +10,7 @@ abstract final class FilePathGenerator {
   FilePathGenerator._();
 
   // ── Hostel images ──────────────────────────────────────────────────────────
-  static String hostelCover(String hostelId) =>
-      'hostel_$hostelId/cover.jpg';
+  static String hostelCover(String hostelId) => 'hostel_$hostelId/cover.jpg';
 
   static String galleryImage(String hostelId, int index) =>
       'hostel_$hostelId/gallery_$index.jpg';
@@ -41,7 +40,7 @@ abstract final class FilePathGenerator {
 
   // ── Cache key ─────────────────────────────────────────────────────────────
   static String hostelCacheKey(String hostelId) => 'hostel:$hostelId';
-  static String hostelListCacheKey()             => 'hostel:list';
+  static String hostelListCacheKey() => 'hostel:list';
   static String bookingCacheKey(String bookingId) => 'booking:$bookingId';
-  static String userCacheKey(String userId)       => 'user:$userId';
+  static String userCacheKey(String userId) => 'user:$userId';
 }

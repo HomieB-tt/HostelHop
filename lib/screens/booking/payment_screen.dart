@@ -7,6 +7,7 @@ import '../../config/app_theme.dart';
 import '../../config/app_routes.dart';
 import '../../providers/booking_provider.dart';
 import '../../models/booking_model.dart';
+import '../../widgets/booking/booking_step_indicator.dart';
 
 // ── Mobile money providers ─────────────────────────────────────────────────────
 enum _MobileMoneyProvider { mtn, airtel }
@@ -146,6 +147,9 @@ class _PaymentScreenState extends ConsumerState<PaymentScreen> {
               children: [
                 // ── Top bar ──────────────────────────────────────────
                 _TopBar(onBack: () => context.pop()),
+
+                // ── Step indicator ───────────────────────────────────
+                const BookingStepIndicator(currentStep: BookingStep.payment),
 
                 // ── Scrollable content ───────────────────────────────
                 Expanded(
@@ -291,7 +295,7 @@ class _AmountDueCard extends StatelessWidget {
         border: Border.all(color: const Color(0xFFE8EAED)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.04),
+            color: Colors.black.withValues(alpha: 0.04),
             blurRadius: 10,
             offset: const Offset(0, 2),
           ),
@@ -391,7 +395,7 @@ class _ProviderSelector extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
               decoration: BoxDecoration(
                 color: isSelected
-                    ? AppColors.blueLight.withOpacity(0.06)
+                    ? AppColors.blueLight.withValues(alpha: 0.06)
                     : Colors.white,
                 borderRadius: BorderRadius.circular(10),
                 border: Border.all(
@@ -409,7 +413,7 @@ class _ProviderSelector extends StatelessWidget {
                     width: 38,
                     height: 38,
                     decoration: BoxDecoration(
-                      color: provider.brandColor.withOpacity(0.15),
+                      color: provider.brandColor.withValues(alpha: 0.15),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Center(
@@ -512,7 +516,7 @@ class _PhoneInput extends StatelessWidget {
         boxShadow: hasFocus
             ? [
                 BoxShadow(
-                  color: AppColors.orangeBright.withOpacity(0.12),
+                  color: AppColors.orangeBright.withValues(alpha: 0.12),
                   blurRadius: 8,
                   offset: const Offset(0, 2),
                 ),
@@ -661,7 +665,7 @@ class _PayNowButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(50),
         boxShadow: [
           BoxShadow(
-            color: AppColors.orangeBright.withOpacity(0.40),
+            color: AppColors.orangeBright.withValues(alpha: 0.40),
             blurRadius: 20,
             offset: const Offset(0, 6),
           ),

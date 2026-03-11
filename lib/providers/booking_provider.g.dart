@@ -47,7 +47,7 @@ final class BookingProvider
   }
 }
 
-String _$bookingHash() => r'8d03058c657193b89a9af4bf9d4ccb1186e3f1a1';
+String _$bookingHash() => r'a337d891566c7d6831bfb2df5cb5eefff4538f2f';
 
 /// Use `ref.read(bookingProvider.notifier)` to call actions.
 /// State is the last created/updated booking — mainly used for loading guards.

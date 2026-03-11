@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../config/app_theme.dart';
+import '../models/hostel_model.dart';
 import '../providers/auth_provider.dart';
+import '../providers/notification_provider.dart';
 
 import '../screens/splash_screen.dart';
 import '../screens/onboarding_screen.dart';
@@ -117,6 +120,24 @@ GoRouter appRouter(AppRouterRef ref) {
               GoRoute(
                 path: AppRoutes.profile,
                 pageBuilder: (_, __) => _fadePage(const ProfileScreen()),
+                routes: [
+                  GoRoute(
+                    path: 'edit',
+                    pageBuilder: (_, __) =>
+                        _slidePage(const EditProfileScreen()),
+                  ),
+                  GoRoute(
+                    path: 'settings',
+                    pageBuilder: (_, __) => _slidePage(const SettingsScreen()),
+                    routes: [
+                      GoRoute(
+                        path: 'notifications',
+                        pageBuilder: (_, __) =>
+                            _slidePage(const NotificationSettingsScreen()),
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ],
           ),
@@ -171,20 +192,6 @@ GoRouter appRouter(AppRouterRef ref) {
         },
       ),
 
-      // ── Profile sub-routes ─────────────────────────────────────────────────
-      GoRoute(
-        path: AppRoutes.editProfile,
-        pageBuilder: (_, __) => _slidePage(const EditProfileScreen()),
-      ),
-      GoRoute(
-        path: AppRoutes.settings,
-        pageBuilder: (_, __) => _slidePage(const SettingsScreen()),
-      ),
-      GoRoute(
-        path: AppRoutes.notificationSettings,
-        pageBuilder: (_, __) => _slidePage(const NotificationSettingsScreen()),
-      ),
-
       // ── Owner ─────────────────────────────────────────────────────────────
       GoRoute(
         path: AppRoutes.ownerDashboard,
@@ -192,15 +199,25 @@ GoRouter appRouter(AppRouterRef ref) {
       ),
       GoRoute(
         path: AppRoutes.manageHostel,
-        pageBuilder: (_, __) => _slidePage(const ManageHostelScreen()),
+        pageBuilder: (_, state) {
+          // extra is HostelModel? — null = create mode, non-null = edit mode
+          final hostel = state.extra as HostelModel?;
+          return _slidePage(ManageHostelScreen(hostel: hostel));
+        },
       ),
       GoRoute(
         path: AppRoutes.manageRooms,
-        pageBuilder: (_, __) => _slidePage(const ManageRoomsScreen()),
+        pageBuilder: (_, state) {
+          final hostelId = state.extra as String;
+          return _slidePage(ManageRoomsScreen(hostelId: hostelId));
+        },
       ),
       GoRoute(
         path: AppRoutes.manageBookings,
-        pageBuilder: (_, __) => _slidePage(const ManageBookingsScreen()),
+        pageBuilder: (_, state) {
+          final hostelId = state.extra as String;
+          return _slidePage(ManageBookingsScreen(hostelId: hostelId));
+        },
       ),
     ],
   );
@@ -210,6 +227,9 @@ GoRouter appRouter(AppRouterRef ref) {
 // authState is our own AppAuthState from auth_provider.dart (not Supabase's AuthState)
 String? _guard(AppAuthState authState, GoRouterState state) {
   final location = state.matchedLocation;
+
+  // While auth is resolving, stay put — prevents login flicker on cold start
+  if (authState.isLoading) return null;
 
   // Public routes — always accessible
   const publicRoutes = {
@@ -249,12 +269,21 @@ String? _guard(AppAuthState authState, GoRouterState state) {
 }
 
 // ── Shell scaffold — persistent bottom nav ─────────────────────────────────────
-class _ShellScaffold extends StatelessWidget {
+class _ShellScaffold extends ConsumerWidget {
   const _ShellScaffold({required this.navigationShell});
   final StatefulNavigationShell navigationShell;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    // Listen for notification deep links — navigate to booking detail on tap
+    ref.listen(notificationDeepLinkProvider, (_, next) {
+      next.whenData((bookingId) {
+        if (bookingId != null && context.mounted) {
+          context.push(AppRoutes.bookingConfirmation(bookingId));
+        }
+      });
+    });
+
     return Scaffold(
       body: navigationShell,
       bottomNavigationBar: _AppBottomNav(

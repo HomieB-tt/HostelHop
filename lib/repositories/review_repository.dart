@@ -45,11 +45,7 @@ class ReviewRepository {
 
   // ── Create review ──────────────────────────────────────────────────────────
   Future<ReviewModel> create(Map<String, dynamic> data) async {
-    final response = await supabase
-        .from(_table)
-        .insert(data)
-        .select()
-        .single();
+    final response = await supabase.from(_table).insert(data).select().single();
 
     return ReviewModel.fromJson(response);
   }
@@ -91,8 +87,10 @@ class ReviewRepository {
         .from(_table)
         .stream(primaryKey: ['id'])
         .eq('hostel_id', hostelId)
-        .map((rows) => rows
-            .map((e) => ReviewModel.fromJson(e as Map<String, dynamic>))
-            .toList());
+        .map(
+          (rows) => rows
+              .map((e) => ReviewModel.fromJson(e as Map<String, dynamic>))
+              .toList(),
+        );
   }
 }

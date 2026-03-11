@@ -68,8 +68,8 @@ class AppErrorWidget extends StatelessWidget {
           children: [
             Container(
               padding: const EdgeInsets.all(18),
-              decoration: BoxDecoration(
-                color: const Color(0xFFFFEBEE),
+              decoration: const BoxDecoration(
+                color: Color(0xFFFFEBEE),
                 shape: BoxShape.circle,
               ),
               child: const Icon(
@@ -134,8 +134,11 @@ class AppErrorWidget extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       child: Row(
         children: [
-          const Icon(Icons.error_outline_rounded,
-              size: 16, color: AppColors.error),
+          const Icon(
+            Icons.error_outline_rounded,
+            size: 16,
+            color: AppColors.error,
+          ),
           const SizedBox(width: 8),
           Expanded(
             child: Text(

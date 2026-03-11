@@ -39,10 +39,7 @@ class AppLoadingIndicator extends StatelessWidget {
 ///   AppLoadingScreen()
 ///   AppLoadingScreen(message: 'Loading hostels…')
 class AppLoadingScreen extends StatelessWidget {
-  const AppLoadingScreen({
-    super.key,
-    this.message,
-  });
+  const AppLoadingScreen({super.key, this.message});
 
   final String? message;
 
@@ -57,7 +54,7 @@ class AppLoadingScreen extends StatelessWidget {
             const SizedBox(height: 16),
             Text(
               message!,
-              style: TextStyle(
+              style: const TextStyle(
                 fontFamily: 'Sora',
                 fontSize: 13,
                 color: AppColors.textSecondaryLight,
@@ -78,11 +75,7 @@ class AppLoadingScreen extends StatelessWidget {
 ///     if (_isLoading) const AppLoadingOverlay(),
 ///   ])
 class AppLoadingOverlay extends StatelessWidget {
-  const AppLoadingOverlay({
-    super.key,
-    this.message,
-    this.opacity = 0.55,
-  });
+  const AppLoadingOverlay({super.key, this.message, this.opacity = 0.55});
 
   final String? message;
   final double opacity;

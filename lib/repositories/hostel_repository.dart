@@ -67,10 +67,7 @@ class HostelRepository {
     List<String>? amenities,
     bool? hasAvailableRooms,
   }) async {
-    var query = supabase
-        .from(_table)
-        .select()
-        .eq('is_active', true);
+    var query = supabase.from(_table).select().eq('is_active', true);
 
     if (maxPrice != null) {
       query = query.lte('price_per_semester', maxPrice);
@@ -100,11 +97,7 @@ class HostelRepository {
 
   // ── Create hostel ──────────────────────────────────────────────────────────
   Future<HostelModel> create(Map<String, dynamic> data) async {
-    final response = await supabase
-        .from(_table)
-        .insert(data)
-        .select()
-        .single();
+    final response = await supabase.from(_table).insert(data).select().single();
 
     return HostelModel.fromJson(response);
   }

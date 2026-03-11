@@ -85,6 +85,7 @@ class StorageService {
   Future<List<String>> pickAndUploadGallery({
     required String hostelId,
     int maxImages = 8,
+    required String ownerId,
   }) async {
     final xFiles = await _picker.pickMultiImage(
       maxWidth: 1200,

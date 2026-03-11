@@ -40,7 +40,7 @@ final class AuthProvider extends $NotifierProvider<Auth, AppAuthState> {
   }
 }
 
-String _$authHash() => r'70ec39394a4ff0646630ffb7867273e5741d99fd';
+String _$authHash() => r'c2656a4fb32a89562747c6b2fd097390ea71041f';
 
 abstract class _$Auth extends $Notifier<AppAuthState> {
   AppAuthState build();

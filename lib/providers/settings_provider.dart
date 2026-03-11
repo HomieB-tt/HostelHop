@@ -1,6 +1,8 @@
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../../services/notification_service.dart';
+
 part 'settings_provider.g.dart';
 
 // ── Settings state ─────────────────────────────────────────────────────────────
@@ -46,8 +48,7 @@ class AppSettings {
           box.get(_notificationsKey, defaultValue: true) as bool,
       bookingAlertsEnabled:
           box.get(_bookingAlertsKey, defaultValue: true) as bool,
-      promoAlertsEnabled:
-          box.get(_promoAlertsKey, defaultValue: false) as bool,
+      promoAlertsEnabled: box.get(_promoAlertsKey, defaultValue: false) as bool,
     );
   }
 
@@ -65,7 +66,18 @@ class AppSettings {
 class Settings extends _$Settings {
   @override
   Future<AppSettings> build() async {
-    return AppSettings.load();
+    final settings = await AppSettings.load();
+    _syncNotificationService(settings);
+    return settings;
+  }
+
+  // ── Sync prefs to NotificationService ─────────────────────────────────────
+  void _syncNotificationService(AppSettings s) {
+    NotificationService.instance.updateSettings(
+      notificationsEnabled: s.notificationsEnabled,
+      bookingAlertsEnabled: s.bookingAlertsEnabled,
+      promoAlertsEnabled: s.promoAlertsEnabled,
+    );
   }
 
   // ── Toggle dark mode ───────────────────────────────────────────────────────
@@ -82,6 +94,7 @@ class Settings extends _$Settings {
     final updated = current.copyWith(notificationsEnabled: value);
     state = AsyncData(updated);
     await updated.save();
+    _syncNotificationService(updated);
   }
 
   // ── Toggle booking alerts ──────────────────────────────────────────────────
@@ -90,6 +103,7 @@ class Settings extends _$Settings {
     final updated = current.copyWith(bookingAlertsEnabled: value);
     state = AsyncData(updated);
     await updated.save();
+    _syncNotificationService(updated);
   }
 
   // ── Toggle promo alerts ────────────────────────────────────────────────────
@@ -98,5 +112,6 @@ class Settings extends _$Settings {
     final updated = current.copyWith(promoAlertsEnabled: value);
     state = AsyncData(updated);
     await updated.save();
+    _syncNotificationService(updated);
   }
 }

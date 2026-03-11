@@ -266,7 +266,7 @@ class _SlidePage extends StatelessWidget {
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    color: slide.emojiBackgroundColor.withOpacity(0.6),
+                    color: slide.emojiBackgroundColor.withValues(alpha: 0.6),
                     blurRadius: 32,
                     spreadRadius: 8,
                   ),
@@ -347,12 +347,12 @@ class _SlidePage extends StatelessWidget {
               borderRadius: BorderRadius.circular(14),
               border: Border.all(
                 color: isDark
-                    ? Colors.white.withOpacity(0.08)
+                    ? Colors.white.withValues(alpha: 0.08)
                     : const Color(0xFFE8EAED),
               ),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(isDark ? 0.20 : 0.05),
+                  color: Colors.black.withValues(alpha: isDark ? 0.20 : 0.05),
                   blurRadius: 12,
                   offset: const Offset(0, 4),
                 ),
@@ -366,7 +366,7 @@ class _SlidePage extends StatelessWidget {
                   width: 40,
                   height: 40,
                   decoration: BoxDecoration(
-                    color: AppColors.orangeBright.withOpacity(0.12),
+                    color: AppColors.orangeBright.withValues(alpha: 0.12),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Center(
@@ -462,7 +462,7 @@ class _NextButton extends StatelessWidget {
             shadowColor: Colors.transparent,
           ).copyWith(
             overlayColor: WidgetStateProperty.all(
-              Colors.white.withOpacity(0.15),
+              Colors.white.withValues(alpha: 0.15),
             ),
           ),
       child: const Text(
@@ -494,7 +494,7 @@ class _GetStartedButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(50),
         boxShadow: [
           BoxShadow(
-            color: AppColors.orangeBright.withOpacity(0.40),
+            color: AppColors.orangeBright.withValues(alpha: 0.40),
             blurRadius: 20,
             offset: const Offset(0, 6),
           ),

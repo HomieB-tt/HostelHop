@@ -37,13 +37,13 @@ class AuthService {
     return _userRepo.fetchById(response.user!.id);
   }
 
-  // ── Sign in (owner) — email + password ────────────────────────────────────
+  // ── Sign in (owner) — username + password ────────────────────────────────────
   Future<UserModel> signInOwner({
-    required String email,
+    required String username,
     required String password,
   }) async {
     final response = await supabase.auth.signInWithPassword(
-      email: email,
+      username: username,
       password: password,
     );
 

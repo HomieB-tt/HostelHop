@@ -230,7 +230,7 @@ class _IdleView extends StatelessWidget {
                   shape: BoxShape.circle,
                   boxShadow: [
                     BoxShadow(
-                      color: AppColors.orangeBright.withOpacity(0.20),
+                      color: AppColors.orangeBright.withValues(alpha: 0.20),
                       blurRadius: 24,
                       spreadRadius: 4,
                     ),
@@ -295,7 +295,7 @@ class _IdleView extends StatelessWidget {
                 boxShadow: phoneHasFocus
                     ? [
                         BoxShadow(
-                          color: AppColors.orangeBright.withOpacity(0.12),
+                          color: AppColors.orangeBright.withValues(alpha: 0.12),
                           blurRadius: 8,
                           offset: const Offset(0, 2),
                         ),
@@ -426,7 +426,7 @@ class _SuccessView extends StatelessWidget {
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    color: const Color(0xFF34A853).withOpacity(0.20),
+                    color: const Color(0xFF34A853).withValues(alpha: 0.20),
                     blurRadius: 24,
                     spreadRadius: 4,
                   ),
@@ -489,7 +489,7 @@ class _SuccessView extends StatelessWidget {
               color: const Color(0xFFFFF3E0),
               borderRadius: BorderRadius.circular(10),
               border: Border.all(
-                color: AppColors.orangeBright.withOpacity(0.30),
+                color: AppColors.orangeBright.withValues(alpha: 0.30),
               ),
             ),
             child: const Row(
@@ -523,7 +523,7 @@ class _SuccessView extends StatelessWidget {
               borderRadius: BorderRadius.circular(50),
               boxShadow: [
                 BoxShadow(
-                  color: AppColors.orangeBright.withOpacity(0.35),
+                  color: AppColors.orangeBright.withValues(alpha: 0.35),
                   blurRadius: 16,
                   offset: const Offset(0, 4),
                 ),
@@ -571,7 +571,7 @@ class _SendResetButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(50),
         boxShadow: [
           BoxShadow(
-            color: AppColors.orangeBright.withOpacity(0.35),
+            color: AppColors.orangeBright.withValues(alpha: 0.35),
             blurRadius: 16,
             offset: const Offset(0, 4),
           ),

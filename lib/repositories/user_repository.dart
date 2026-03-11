@@ -34,11 +34,7 @@ class UserRepository {
 
   // ── Create profile (called after sign-up) ─────────────────────────────────
   Future<UserModel> create(Map<String, dynamic> data) async {
-    final response = await supabase
-        .from(_table)
-        .insert(data)
-        .select()
-        .single();
+    final response = await supabase.from(_table).insert(data).select().single();
 
     return UserModel.fromJson(response);
   }
@@ -62,10 +58,7 @@ class UserRepository {
 
   // ── Update FCM token (for push notifications) ─────────────────────────────
   Future<void> updateFcmToken(String userId, String token) async {
-    await supabase
-        .from(_table)
-        .update({'fcm_token': token})
-        .eq('id', userId);
+    await supabase.from(_table).update({'fcm_token': token}).eq('id', userId);
   }
 
   // ── Realtime stream — current user profile ────────────────────────────────

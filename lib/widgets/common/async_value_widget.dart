@@ -116,10 +116,7 @@ class SliverAsyncValueWidget<T> extends StatelessWidget {
   Widget build(BuildContext context) {
     return value.when(
       loading: () =>
-          loading ??
-          const SliverFillRemaining(
-            child: AppLoadingScreen(),
-          ),
+          loading ?? const SliverFillRemaining(child: AppLoadingScreen()),
       error: (e, st) => SliverFillRemaining(
         child: error != null
             ? error!(e, st)

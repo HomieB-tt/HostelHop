@@ -3,6 +3,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../models/booking_model.dart';
 import '../../services/booking_service.dart';
+import '../providers/hostel_provider.dart';
 
 part 'booking_provider.g.dart';
 
@@ -70,9 +71,14 @@ class Booking extends _$Booking {
 
     state = AsyncData(confirmed);
 
-    // Invalidate both the detail and list providers
+    // Invalidate booking providers
     ref.invalidate(myBookingsProvider);
     ref.invalidate(bookingDetailProvider(bookingId));
+
+    // Invalidate hostel providers — rooms_available decrements after payment
+    ref.invalidate(hostelDetailProvider(confirmed.hostelId));
+    ref.invalidate(hostelListProvider);
+    ref.invalidate(ownerHostelListProvider);
   }
 
   // ── Cancel booking ─────────────────────────────────────────────────────────

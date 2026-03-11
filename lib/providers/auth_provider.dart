@@ -2,11 +2,14 @@ import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:supabase_flutter/supabase_flutter.dart' show User;
+import 'package:supabase_flutter/supabase_flutter.dart' show User, AuthState;
 
 import '../../models/user_model.dart';
 import '../../services/auth_service.dart';
 import '../../services/notification_service.dart';
+import '../providers/booking_provider.dart';
+import '../providers/hostel_provider.dart';
+import '../providers/user_provider.dart';
 
 part 'auth_provider.g.dart';
 
@@ -82,8 +85,13 @@ class Auth extends _$Auth {
     final user = event.session?.user;
 
     if (user == null) {
-      // Signed out
+      // Signed out — clear auth state and invalidate all user-scoped providers
       state = const AppAuthState();
+      ref.invalidate(userProfileProvider);
+      ref.invalidate(myBookingsProvider);
+      ref.invalidate(hostelListProvider);
+      // Cancel FCM token refresh subscription
+      NotificationService.instance.cancelTokenRefresh().ignore();
       return;
     }
 
@@ -122,11 +130,12 @@ class Auth extends _$Auth {
 
   // ── Sign in (owner) ────────────────────────────────────────────────────────
   Future<void> signInOwner({
-    required String email,
+    required String username,
     required String password,
+    required String otp,
   }) async {
     final profile = await _authService.signInOwner(
-      email: email,
+      username: username,
       password: password,
     );
     final currentUser = _authService.currentUser!;
@@ -186,7 +195,7 @@ class Auth extends _$Auth {
   // ── FCM token helper ───────────────────────────────────────────────────────
   void _registerNotificationToken(String userId) {
     // Fire-and-forget — non-fatal
-    NotificationService().registerTokenForUser(userId).ignore();
+    NotificationService.instance.registerTokenForUser(userId).ignore();
   }
 }
 

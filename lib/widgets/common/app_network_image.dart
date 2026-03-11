@@ -26,6 +26,8 @@ class AppNetworkImage extends StatelessWidget {
     Key? key,
     required String? url,
     required double size,
+    required initials,
+    required int radius,
   }) {
     return AppNetworkImage(
       key: key,
@@ -55,10 +57,7 @@ class AppNetworkImage extends StatelessWidget {
   }
 
   /// Hostel card thumbnail
-  factory AppNetworkImage.card({
-    Key? key,
-    required String? url,
-  }) {
+  factory AppNetworkImage.card({Key? key, required String? url}) {
     return AppNetworkImage(
       key: key,
       url: url,

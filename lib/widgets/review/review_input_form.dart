@@ -40,8 +40,7 @@ class _ReviewInputFormState extends State<ReviewInputForm> {
   void initState() {
     super.initState();
     _rating = widget.initialRating;
-    _commentController =
-        TextEditingController(text: widget.initialComment);
+    _commentController = TextEditingController(text: widget.initialComment);
   }
 
   @override
@@ -160,8 +159,7 @@ class _ReviewInputFormState extends State<ReviewInputForm> {
               color: AppColors.textPrimaryLight,
             ),
             decoration: InputDecoration(
-              hintText:
-                  'Share your experience — cleanliness, location, value…',
+              hintText: 'Share your experience — cleanliness, location, value…',
               hintStyle: const TextStyle(
                 fontFamily: 'Roboto',
                 fontSize: 13,
@@ -194,8 +192,10 @@ class _ReviewInputFormState extends State<ReviewInputForm> {
               ),
               focusedErrorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
-                borderSide:
-                    const BorderSide(color: AppColors.error, width: 1.5),
+                borderSide: const BorderSide(
+                  color: AppColors.error,
+                  width: 1.5,
+                ),
               ),
               counterStyle: const TextStyle(
                 fontFamily: 'Roboto',

@@ -11,11 +11,7 @@ import '../../../config/app_theme.dart';
 /// The [large] variant is used on the hostel detail screen's full amenity grid.
 /// The default (small) variant is used on hostel cards.
 class AmenityChip extends StatelessWidget {
-  const AmenityChip({
-    super.key,
-    required this.amenity,
-    this.large = false,
-  });
+  const AmenityChip({super.key, required this.amenity, this.large = false});
 
   final String amenity;
   final bool large;
@@ -51,9 +47,7 @@ class AmenityChip extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.orangeBright.withOpacity(0.08),
         borderRadius: BorderRadius.circular(50),
-        border: Border.all(
-          color: AppColors.orangeBright.withOpacity(0.18),
-        ),
+        border: Border.all(color: AppColors.orangeBright.withOpacity(0.18)),
       ),
       child: Text(
         '$icon $amenity',
