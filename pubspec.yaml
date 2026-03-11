@@ -83,8 +83,8 @@ flutter:
   fonts:
   - family: CustomFont # Replace with your chosen Google Font
     fonts:
-    - asset: assets/fonts/CustomFont-Regular.ttf
-    - asset: assets/fonts/CustomFont-Medium.ttf
+    - asset: assets/fonts/Sora-Regular.ttf
+    - asset: assets/fonts/Sora-Medium.ttf
       weight: 500
-    - asset: assets/fonts/CustomFont-Bold.ttf
+    - asset: assets/fonts/Sora-Bold.ttf
       weight: 700
