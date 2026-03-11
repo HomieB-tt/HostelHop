@@ -125,7 +125,7 @@ class _HostelReviewsScreenState extends ConsumerState<HostelReviewsScreen> {
               data: (hostel) => _RatingSummary(
                 rating: hostel.rating,
                 reviewCount: hostel.reviewCount,
-                reviews: reviewsAsync.valueOrNull ?? [],
+                reviews: reviewsAsync.value ?? [],
               ),
             ),
           ),

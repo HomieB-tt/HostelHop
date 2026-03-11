@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -82,7 +83,7 @@ class Settings extends _$Settings {
 
   // ── Toggle dark mode ───────────────────────────────────────────────────────
   Future<void> toggleDarkMode() async {
-    final current = state.valueOrNull ?? const AppSettings();
+    final current = state.value ?? const AppSettings();
     final updated = current.copyWith(isDarkMode: !current.isDarkMode);
     state = AsyncData(updated);
     await updated.save();
@@ -90,7 +91,7 @@ class Settings extends _$Settings {
 
   // ── Toggle all notifications ───────────────────────────────────────────────
   Future<void> setNotificationsEnabled(bool value) async {
-    final current = state.valueOrNull ?? const AppSettings();
+    final current = state.value ?? const AppSettings();
     final updated = current.copyWith(notificationsEnabled: value);
     state = AsyncData(updated);
     await updated.save();
@@ -99,7 +100,7 @@ class Settings extends _$Settings {
 
   // ── Toggle booking alerts ──────────────────────────────────────────────────
   Future<void> setBookingAlertsEnabled(bool value) async {
-    final current = state.valueOrNull ?? const AppSettings();
+    final current = state.value ?? const AppSettings();
     final updated = current.copyWith(bookingAlertsEnabled: value);
     state = AsyncData(updated);
     await updated.save();
@@ -108,7 +109,7 @@ class Settings extends _$Settings {
 
   // ── Toggle promo alerts ────────────────────────────────────────────────────
   Future<void> setPromoAlertsEnabled(bool value) async {
-    final current = state.valueOrNull ?? const AppSettings();
+    final current = state.value ?? const AppSettings();
     final updated = current.copyWith(promoAlertsEnabled: value);
     state = AsyncData(updated);
     await updated.save();

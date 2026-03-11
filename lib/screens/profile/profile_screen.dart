@@ -231,7 +231,7 @@ class _ProfileHeader extends ConsumerWidget {
               children: [
                 AppNetworkImage.avatar(
                   url: profile.avatarUrl,
-                  radius: 44,
+                  size: 44,
                   initials: profile.firstName.isNotEmpty
                       ? profile.firstName[0].toUpperCase()
                       : '?',

@@ -58,7 +58,7 @@ class HostelHopApp extends ConsumerWidget {
     final settingsAsync = ref.watch(settingsProvider);
 
     // Dark mode — default to light while settings load
-    final isDark = settingsAsync.valueOrNull?.isDarkMode ?? false;
+    final isDark = settingsAsync.value?.isDarkMode ?? false;
 
     return MaterialApp.router(
       title: 'HostelHop',

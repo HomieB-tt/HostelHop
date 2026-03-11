@@ -151,8 +151,7 @@ class _EditFormState extends ConsumerState<_EditForm> {
 
   @override
   Widget build(BuildContext context) {
-    final profile =
-        ref.watch(userProfileProvider).valueOrNull ?? widget.profile;
+    final profile = ref.watch(userProfileProvider).value ?? widget.profile;
 
     return Form(
       key: _formKey,
@@ -184,7 +183,7 @@ class _EditFormState extends ConsumerState<_EditForm> {
                       )
                     : AppNetworkImage.avatar(
                         url: profile.avatarUrl,
-                        radius: 44,
+                        size: 44,
                         initials: profile.firstName.isNotEmpty
                             ? profile.firstName[0].toUpperCase()
                             : '?',

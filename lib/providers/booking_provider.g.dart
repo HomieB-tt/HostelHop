@@ -134,7 +134,7 @@ final class BookingDetailProvider
   }
 }
 
-String _$bookingDetailHash() => r'e0d292847d78b47b1abf28b91060c7fd6ac517f8';
+String _$bookingDetailHash() => r'ef96e612aa1e9b1b606cb088e507f7bffd6aaa28';
 
 /// Watched by payment_screen and booking_confirmation_screen as:
 ///   final bookingAsync = ref.watch(bookingDetailProvider(bookingId));
@@ -207,4 +207,4 @@ final class MyBookingsProvider
   }
 }
 
-String _$myBookingsHash() => r'9f8195064a36dd0266221f270cb8868560b9db23';
+String _$myBookingsHash() => r'43cd3b14b62a8619962ea0a8e6c2bbe6524904b1';

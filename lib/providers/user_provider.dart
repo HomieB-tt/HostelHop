@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../models/user_model.dart';
@@ -33,7 +34,7 @@ class UserProfile extends _$UserProfile {
     String? lastName,
     String? phone,
   }) async {
-    final current = state.valueOrNull;
+    final current = state.value;
     if (current == null) return;
 
     final updates = <String, dynamic>{};
@@ -57,7 +58,7 @@ class UserProfile extends _$UserProfile {
 
   // ── Pick and upload avatar ─────────────────────────────────────────────────
   Future<void> updateAvatar() async {
-    final current = state.valueOrNull;
+    final current = state.value;
     if (current == null) return;
 
     final url = await _storageService.pickAndUploadAvatar(current.id);

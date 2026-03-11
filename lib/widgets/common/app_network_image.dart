@@ -27,7 +27,7 @@ class AppNetworkImage extends StatelessWidget {
     required String? url,
     required double size,
     required initials,
-    required int radius,
+    int? radius,
   }) {
     return AppNetworkImage(
       key: key,

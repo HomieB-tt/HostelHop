@@ -130,7 +130,7 @@ final class HostelDetailProvider
   }
 }
 
-String _$hostelDetailHash() => r'7faaa0a1032f15b47ee636644835459781e4c3c9';
+String _$hostelDetailHash() => r'8c82307547e6c34a6b8b3a4c3db6b03023be7390';
 
 /// Watched by hostel_detail_screen and booking_screen as:
 ///   final hostelAsync = ref.watch(hostelDetailProvider(hostelId));
@@ -203,4 +203,4 @@ final class OwnerHostelListProvider
   }
 }
 
-String _$ownerHostelListHash() => r'b4f9992b7779345f3a182725c31c743805eb9643';
+String _$ownerHostelListHash() => r'f054ee8ada604c2a978fe54a5697c3c2d6de08cd';

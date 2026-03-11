@@ -132,6 +132,7 @@ class Auth extends _$Auth {
   Future<void> signInOwner({
     required String username,
     required String password,
+    required String otp,
   }) async {
     final profile = await _authService.signInOwner(
       username: '', // Supabase uses email auth; owner's username IS their email
