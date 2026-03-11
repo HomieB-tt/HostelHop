@@ -1,3 +1,5 @@
+import 'package:hostelhop/models/hostel_model.dart';
+
 import '../../models/booking_model.dart';
 import '../../repositories/booking_repository.dart';
 import '../../repositories/hostel_repository.dart';
@@ -83,7 +85,7 @@ class BookingService {
     // Record payment + confirm booking
     final confirmed = await _bookingRepo.recordCommitmentPayment(
       bookingId: bookingId,
-      amount: booking.commitmentFee,
+      amount: booking.commitmentFeeAmount,
       paymentMethod: paymentMethod,
       paymentPhone: paymentPhone,
     );

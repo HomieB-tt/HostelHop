@@ -115,4 +115,4 @@ Future<List<BookingModel>> myBookings(MyBookingsRef ref) async {
 }
 
 // ── Convenience aliases matching screen import names ──────────────────────────
-final bookingProvider = bookingNotifierProvider;
+final bookingProvider = BookingProvider._();

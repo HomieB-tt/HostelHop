@@ -197,7 +197,11 @@ class _Avatar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (review.userAvatarUrl != null) {
-      return AppNetworkImage.avatar(url: review.userAvatarUrl, size: 38, initials: null, radius: ,);
+      return AppNetworkImage.avatar(
+        url: review.userAvatarUrl,
+        size: 38,
+        initials: null,
+      );
     }
 
     // Fallback: initial letter circle

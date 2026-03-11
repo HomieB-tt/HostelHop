@@ -43,7 +43,7 @@ class AuthService {
     required String password,
   }) async {
     final response = await supabase.auth.signInWithPassword(
-      username: username,
+      email: username,
       password: password,
     );
 

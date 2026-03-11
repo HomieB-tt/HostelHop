@@ -135,7 +135,7 @@ class Auth extends _$Auth {
     required String otp,
   }) async {
     final profile = await _authService.signInOwner(
-      username: username,
+      username: '', // Supabase uses email auth; owner's username IS their email
       password: password,
     );
     final currentUser = _authService.currentUser!;
@@ -148,9 +148,12 @@ class Auth extends _$Auth {
   Future<void> registerWithPhone({
     required String phone,
     required String password,
-    required String firstName,
-    required String lastName,
+    required String fullName,
   }) async {
+    final parts = fullName.trim().split(RegExp(r'\s+'));
+    final firstName = parts.isNotEmpty ? parts.first : '';
+    final lastName = parts.length > 1 ? parts.sublist(1).join(' ') : '';
+
     final profile = await _authService.registerWithPhone(
       phone: phone,
       password: password,
@@ -202,4 +205,4 @@ class Auth extends _$Auth {
 // ── Convenience provider alias ─────────────────────────────────────────────────
 /// Use `ref.watch(authProvider)` to get AppAuthState.
 /// Use `ref.read(authProvider.notifier)` to call actions.
-final authProvider = authNotifierProvider;
+final authProvider = AuthProvider._();

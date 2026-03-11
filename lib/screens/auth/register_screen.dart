@@ -71,7 +71,7 @@ class RegisterScreen extends ConsumerStatefulWidget {
   ConsumerState<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _RegisterScreenState extends State<RegisterScreen>
+class _RegisterScreenState extends ConsumerState<RegisterScreen>
     with TickerProviderStateMixin {
   // ── Form ───────────────────────────────────────────────────────────────────
   final _formKey = GlobalKey<FormState>();
