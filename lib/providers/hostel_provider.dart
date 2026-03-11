@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -59,8 +60,8 @@ class HostelList extends _$HostelList {
 /// Watched by hostel_detail_screen and booking_screen as:
 ///   final hostelAsync = ref.watch(hostelDetailProvider(hostelId));
 @riverpod
-Future<HostelModel> hostelDetail(HostelDetailRef ref, String hostelId) async {
-  const repo = HostelRepository();
+Future<HostelModel> hostelDetail(Ref ref, String hostelId) async {
+  final repo = const HostelRepository();
   return repo.fetchById(hostelId);
 }
 
@@ -68,7 +69,7 @@ Future<HostelModel> hostelDetail(HostelDetailRef ref, String hostelId) async {
 /// Watched by owner dashboard as:
 ///   final hostelsAsync = ref.watch(ownerHostelListProvider);
 @riverpod
-Future<List<HostelModel>> ownerHostelList(OwnerHostelListRef ref) async {
+Future<List<HostelModel>> ownerHostelList(Ref ref) async {
   final userId = Supabase.instance.client.auth.currentUser?.id;
   if (userId == null) return [];
   return const HostelRepository().fetchByOwner(userId);

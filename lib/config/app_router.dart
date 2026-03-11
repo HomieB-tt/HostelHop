@@ -38,7 +38,7 @@ part 'app_router.g.dart';
 
 // ── Router provider ────────────────────────────────────────────────────────────
 @riverpod
-GoRouter appRouter(AppRouterRef ref) {
+GoRouter appRouter(Ref ref) {
   // Watch our own AppAuthState — not Supabase's raw AuthState
   final authState = ref.watch(authProvider);
 
